@@ -17,9 +17,10 @@ module.exports = {
       fontFamily: {
         'nunito': "Nunito",
         'gabarito': "Gabarito",
+        'fraunces': "Fraunces",
       }
     },
-    darkMode: "class",
   },
+  darkMode: "class",
   plugins: [nextui()],
 };
