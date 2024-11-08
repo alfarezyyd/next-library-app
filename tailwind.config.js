@@ -18,6 +18,7 @@ module.exports = {
         'nunito': "Nunito",
         'gabarito': "Gabarito",
         'fraunces': "Fraunces",
+        'acorn': "Acorn"
       }
     },
   },
