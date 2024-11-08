@@ -14,9 +14,12 @@ module.exports = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      fontFamily: {
+        'nunito': "Nunito",
+        'gabarito': "Gabarito",
+      }
     },
     darkMode: "class",
-    plugins: [nextui()],
   },
-  plugins: [],
+  plugins: [nextui()],
 };
