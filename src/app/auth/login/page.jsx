@@ -5,8 +5,8 @@ import {FaGoogle} from "react-icons/fa";
 export default function Page() {
   return (
     <div className="h-screen bg-sky-200">
-      <div className="bg-white pt-4">
-        <Image src="/logo.png" width={150} height={150} alt="Logo" className="mx-auto"/>
+      <div className="bg-white py-7">
+        <Image src="/logo.png" width={200} height={200} alt="Logo" className="mx-auto"/>
       </div>
       <div className="custom-shape-divider-top-1731070628">
         <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
