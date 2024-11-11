@@ -31,10 +31,10 @@ export default function Navbar({whichActive}) {
 
 
         <div className={`flex flex-row items-center gap-2 p-3  rounded-full box-border 
-          ${whichActive === "House" ? 'text-blue-600 bg-white ' : ''}`}>
+          ${whichActive === "Notification" ? 'text-blue-600 bg-white ' : ''}`}>
           <FaBell/>
-          {whichActive === "House" &&
-            <span className="text-xs font-semibold">Home</span>
+          {whichActive === "Notification" &&
+            <span className="text-xs font-semibold">Notification</span>
           }
         </div>
         <div className={`flex flex-row items-center gap-2 p-3 rounded-full box-border 
