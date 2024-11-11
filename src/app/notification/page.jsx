@@ -33,7 +33,7 @@ export default function Page() {
           </div>
         </div>
       </div>
-      <Navbar whichActive={'Notification'}/>
+      <Navbar whichActive={'Home'}/>
     </Wrapper>
   )
 }
