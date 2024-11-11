@@ -10,7 +10,7 @@ export default function Page() {
         <div className="mx-8">
           <h6 className="text-xl font-semibold">May 5, 2024</h6>
           <h1 className="text-4xl font-bold">Activity</h1>
-          <div className="flex flex-row justify-between mt-3">
+          <div className="flex flex-row justify-between mt-3 bg-white p-4 text-[#3149BB] rounded-2xl font-semibold shadow-md backdrop-blur-2xl">
             <div className="flex flex-col items-center gap-2">
               <h1 className="text-lg">Mon</h1>
               <p className="text-md">4</p>
@@ -36,8 +36,7 @@ export default function Page() {
               <p className="text-md">4</p>
             </div>
           </div>
-          <Divider orientation={"vertical"} className="w-0.5 h-full bg-white absolute left-1/2"/>
-
+          <Divider orientation={"vertical"} className="w-1 h-full bg-white absolute left-1/2"/>
           <div className="flex flex-col text-gray-50 mt-5">
             <div className="flex md:contents">
               <div className="bg-green-500 p-4 rounded-xl my-4 mr-auto shadow-md w-full">
@@ -49,7 +48,7 @@ export default function Page() {
                     </p>
                   </div>
                   <div
-                    className="absolute left-1/2 transform -translate-x-1/2 top-1/2 -translate-y-1/2 bg-blue-500 rounded-full shadow text-center h-8 w-8 flex items-center justify-center">
+                    className="absolute left-1/2 transform ml-0.5 -translate-x-1/2 top-1/2 -translate-y-1/2 bg-blue-500 rounded-full shadow text-center h-8 w-8 flex items-center justify-center">
                     <FaCheckCircle className="text-white"/>
                   </div>
                   <div className="ml-auto">09</div>
@@ -77,7 +76,7 @@ export default function Page() {
 
         </div>
       </div>
-      <Navbar whichActive={'Activity'}/>
+      <Navbar whichActive={'Profile'}/>
     </Wrapper>
   )
 }
