@@ -3,7 +3,7 @@ import {FaBell, FaBook, FaQrcode, FaUser} from "react-icons/fa";
 
 export default function Navbar({whichActive}) {
   return (
-    <div className="fixed bottom-0 w-full flex justify-center items-center">
+    <div className="fixed bottom-0 w-full flex justify-center items-center font-fraunces">
       <div
         className="bg-[#005EEC] shadow-lg p-3 mb-5 flex justify-around items-center rounded-full max-w-md w-full mx-5">
         <div className={`flex flex-row items-center gap-2  rounded-full box-border 
@@ -38,10 +38,10 @@ export default function Navbar({whichActive}) {
           }
         </div>
         <div className={`flex flex-row items-center gap-2 p-3 rounded-full box-border 
-          ${whichActive === "House" ? 'text-blue-600 bg-white ' : ''}`}>
+          ${whichActive === "About" ? 'text-blue-600 bg-white ' : ''}`}>
           <FaBook/>
-          {whichActive === "House" &&
-            <span className="text-xs font-semibold">Home</span>
+          {whichActive === "About" &&
+            <span className="text-xs font-semibold">About</span>
           }
         </div>
 
