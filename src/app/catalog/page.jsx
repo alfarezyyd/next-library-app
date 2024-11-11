@@ -114,7 +114,7 @@ export default function Page() {
           <hr className="-mx-6"/>
         </div>
       </div>
-      <Navbar/>
+      <Navbar whichActive={"Home"}/>
     </Wrapper>
   )
 }
