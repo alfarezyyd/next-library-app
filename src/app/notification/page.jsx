@@ -1,9 +1,11 @@
 import {Avatar, Chip, Divider, Image} from "@nextui-org/react";
 import {FaCheckCircle, FaExclamation, FaExclamationCircle, FaTimesCircle} from "react-icons/fa";
+import Wrapper from "@/components/Wrapper";
+import Navbar from "@/components/Navbar";
 
 export default function Page() {
   return (
-    <div className="h-full font-fraunces bg-[#3149BB]">
+    <Wrapper additionalClass={"font-fraunces bg-[#3149BB]"}>
       <div className="pt-8 flex flex-col gap-2 items-center pb-4">
         <div className="bg-white bg-opacity-10 text-white px-4 py-2 rounded-full text-lg inline backdrop-blur-3xl">
           Notifications
@@ -31,6 +33,7 @@ export default function Page() {
           </div>
         </div>
       </div>
-    </div>
+      <Navbar whichActive={'Notification'}/>
+    </Wrapper>
   )
 }
