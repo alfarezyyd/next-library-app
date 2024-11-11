@@ -1,10 +1,11 @@
 import Image from "next/image";
 import {Button, Input, Link} from "@nextui-org/react";
 import {FaGoogle} from "react-icons/fa";
+import Wrapper from "@/components/Wrapper";
 
 export default function Page() {
   return (
-    <div className="h-screen bg-sky-200">
+    <Wrapper>
       <div className="bg-white py-7">
         <Image src="/logo.png" width={200} height={200} alt="Logo" className="mx-auto"/>
       </div>
@@ -49,6 +50,6 @@ export default function Page() {
           Login By Google
         </Button>
       </div>
-    </div>
+    </Wrapper>
   )
 }
