@@ -1,11 +1,19 @@
+"use client"
 import Image from "next/image";
 import {Button, Input, Link} from "@nextui-org/react";
 import {FaGoogle} from "react-icons/fa";
 import Wrapper from "@/components/Wrapper";
+import {useState} from "react";
+import {EyeSlashFilledIcon} from "@/components/icon/EyeSlashFilledIcon";
+import {EyeFilledIcon} from "@/components/icon/EyeFilledIcon";
 
 export default function Page() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  const toggleVisibility = () => setIsVisible(!isVisible);
+
   return (
-    <Wrapper>
+    <Wrapper additionalClass="bg-sky-200">
       <div className="bg-white py-7">
         <Image src="/logo.png" width={200} height={200} alt="Logo" className="mx-auto"/>
       </div>
@@ -22,7 +30,7 @@ export default function Page() {
             className="shape-fill"></path>
         </svg>
       </div>
-      <div className="flex flex-col justify-center items-center bg-sky-200 gap-4">
+      <div className="flex flex-col justify-center items-center gap-4">
         <h1 className="pt-4 font-gabarito text-blue-900 text-3xl text-center font-semibold">
           Perpusyuk!
         </h1>
@@ -30,20 +38,29 @@ export default function Page() {
           isRequired
           type="email"
           label="Email"
-          defaultValue="junior@nextui.org"
           className="max-w-xs"
         />
         <Input
           isRequired
-          type="email"
-          label="Email"
-          defaultValue="junior@nextui.org"
+
+          label="Passsword"
+          endContent={
+            <button className="focus:outline-none" type="button" onClick={toggleVisibility}
+                    aria-label="toggle password visibility">
+              {isVisible ? (
+                <EyeSlashFilledIcon className="text-2xl text-default-400 pointer-events-none"/>
+              ) : (
+                <EyeFilledIcon className="text-2xl text-default-400 pointer-events-none"/>
+              )}
+            </button>
+          }
+          type={isVisible ? "text" : "password"}
           className="max-w-xs"
         />
-        <Button color="primary">
+        <Button as={Link} href={"/catalog"} color="primary">
           Login
         </Button>
-        <Link href="#" className="relative inline-block text-blue-600">
+        <Link href="/auth/forgot-password" className="relative inline-block text-blue-600">
           <span className="hover-underline-effect">Lupa Kata Sandi?</span>
         </Link>
         <Button color="primary" className="" variant="bordered" startContent={<FaGoogle/>}>

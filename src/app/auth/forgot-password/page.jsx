@@ -4,9 +4,9 @@ import Wrapper from "@/components/Wrapper";
 
 export default function Page() {
   return (
-    <Wrapper>
-      <div className="bg-white pt-4">
-        <Image src="/logo.png" width={150} height={150} alt="Logo" className="mx-auto"/>
+    <Wrapper additionalClass={"bg-sky-200"}>
+      <div className="bg-white py-7">
+        <Image src="/logo.png" width={200} height={200} alt="Logo" className="mx-auto"/>
       </div>
       <div className="custom-shape-divider-top-1731070628">
         <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
@@ -30,13 +30,12 @@ export default function Page() {
           isRequired
           type="email"
           label="Email"
-          defaultValue="junior@nextui.org"
           className="max-w-xs"
         />
         <Button color="primary">
           Atur Ulang
         </Button>
-        <Link href="#" className="relative inline-block text-blue-600">
+        <Link href="/auth/login" className="relative inline-block text-blue-600">
           <span className="hover-underline-effect">Login</span>
         </Link>
 
