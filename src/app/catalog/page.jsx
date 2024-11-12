@@ -4,6 +4,7 @@ import {Button, Card, CardBody, CardFooter, Input, Link} from "@nextui-org/react
 import {SearchIcon} from "@/components/icon/SearchIcon";
 import Wrapper from "@/components/Wrapper";
 import Navbar from "@/components/Navbar";
+import {IoIosArrowForward} from "react-icons/io";
 
 export default function Page() {
   return (
@@ -14,7 +15,7 @@ export default function Page() {
           classNames={{
             base: "max-w-full sm:max-w-xs mx-auto h-10",
             mainWrapper: "h-full",
-            input: "text-small placeholder:text-white bg-transparent",
+            input: "text-small !text-white placeholder:text-white bg-transparent",
             inputWrapper: "h-full font-normal text-white bg-default-400/20 focus-within:!bg-default-400/20 backdrop-blur-xl",
           }}
           placeholder="What whould like to read..."
@@ -79,13 +80,16 @@ export default function Page() {
       </div>
       <div className="bg-white rounded-t-3xl ">
         <div className="flex flex-col gap-4 p-6">
-          <div className="flex flex-row gap-8">
+          <div className="flex flex-row gap-8 ">
             <div className="bg-pink-100/40 rounded-xl p-2 backdrop-blur">
-              <Image src={"/book1.png"} className="h-28 w-28"/>
+              <Image src={"/book1.png"} className="w-40"/>
             </div>
-            <div className="flex flex-col text-black gap-1">
+            <div className="flex flex-col text-black gap-5 w-full">
               <h1>Management</h1>
-              <h1 className="text-2xl font-semibold">Show Your Work</h1>
+              <div className="flex flex-row justify-between items-center ">
+                <h1 className="text-2xl font-semibold">Show Your Work</h1>
+                <IoIosArrowForward className="text-2xl"/>
+              </div>
               <h1 className="font-light">Antonio Bonaparte</h1>
             </div>
           </div>
@@ -94,7 +98,7 @@ export default function Page() {
             <div className="bg-pink-100/40 rounded-xl p-2 backdrop-blur">
               <Image src={"/book1.png"} className="h-28 w-28"/>
             </div>
-            <div className="flex flex-col text-black gap-1">
+            <div className="flex flex-col text-black sm:gap-1">
               <h1>Management</h1>
               <h1 className="text-2xl font-semibold">Show Your Work</h1>
               <h1 className="font-light">Antonio Bonaparte</h1>
