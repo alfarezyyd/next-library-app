@@ -1,6 +1,11 @@
 import {Chip, Image} from "@nextui-org/react";
 import Wrapper from "@/components/Wrapper";
 import Navbar from "@/components/Navbar";
+import {FaAddressCard} from "react-icons/fa6";
+import {IoCall} from "react-icons/io5";
+import {IoMdMail} from "react-icons/io";
+import {HiLibrary} from "react-icons/hi";
+import {FaArrowCircleRight} from "react-icons/fa";
 
 export default function Page() {
   return (
@@ -19,13 +24,27 @@ export default function Page() {
           </svg>
         </div>
       </div>
-      <div className="bg-white relative bottom-14 mx-12 rounded-3xl shadow-xl text-black backdrop-blur-2xl">
-        <div className="p-5 flex flex-col gap-4 justify-center items-center">
-          <Chip size="lg">2210631250037</Chip>
-          <Chip size="lg">2210631250037</Chip>
-          <Chip size="lg">2210631250037</Chip>
+      <div className="bg-white relative bottom-14 mx-12 rounded-3xl shadow-xl text-black backdrop-blur-2xl p-5">
+        <div className="flex flex-row justify-center items-center gap-4">
+          <div className="flex flex-col gap-4">
+            <Chip size="lg" className="text-lg"><FaAddressCard/></Chip>
+            <Chip size="lg" className="text-lg"><IoCall/></Chip>
+            <Chip size="lg" className="text-lg"><IoMdMail/></Chip>
+            <Chip size="lg" className="text-lg"><HiLibrary/></Chip>
+          </div>
+          <div className="flex flex-col gap-4">
+            <Chip size="lg" className="text-lg">2210631250037</Chip>
+            <Chip size="lg" className="text-lg">089621232132</Chip>
+            <Chip size="lg" className="text-lg">student.eed@gmail.com</Chip>
+            <Chip size="lg" className="text-lg">Ilmu Pendidikan</Chip>
+          </div>
         </div>
+        <a href="/activity" className="-m-5 mt-5 rounded-b-3xl bg-sky-200 flex flex-row justify-center gap-2 items-center">
+          <h1 className="text-2xl text-center p-2">Activity</h1>
+          <FaArrowCircleRight className="text-2xl"/>
+        </a>
       </div>
+
       <Navbar whichActive={'Profile'}/>
     </Wrapper>)
 }
