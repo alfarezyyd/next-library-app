@@ -3,7 +3,7 @@ import {FaBell, FaBook, FaQrcode, FaUser} from "react-icons/fa";
 
 export default function Navbar({whichActive}) {
   return (
-    <div className="fixed bottom-0 w-full flex justify-center items-center font-fraunces">
+    <div className="navbar fixed bottom-0 bottom-safe-0 w-full flex justify-center items-center font-fraunces">
       <div className="bg-[#005EEC] shadow-lg py-3 mb-5 flex justify-evenly items-center rounded-full max-w-xs w-full">
         <a href={"/catalog"} className={`flex flex-row items-center gap-2  rounded-full box-border 
           ${whichActive === "Home" ? 'text-blue-600 bg-white p-3' : ''}`}>

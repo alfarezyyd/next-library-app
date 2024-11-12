@@ -148,3 +148,7 @@ body {
   -webkit-mask-repeat: no-repeat;
   background-size: cover;
 }
+
+.navbar {
+  padding-bottom: env(safe-area-inset-bottom);
+}
