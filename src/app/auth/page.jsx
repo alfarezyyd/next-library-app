@@ -4,8 +4,6 @@ import {Button, Divider, Input, Link} from "@nextui-org/react";
 import {FaGoogle} from "react-icons/fa";
 import Wrapper from "@/components/Wrapper";
 import {useState} from "react";
-import {EyeSlashFilledIcon} from "@/components/icon/EyeSlashFilledIcon";
-import {EyeFilledIcon} from "@/components/icon/EyeFilledIcon";
 import {FaAddressCard} from "react-icons/fa6";
 
 export default function Page() {

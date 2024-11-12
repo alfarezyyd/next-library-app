@@ -8,9 +8,9 @@ import {IoIosArrowForward} from "react-icons/io";
 
 export default function Page() {
   return (
-    <Wrapper additionalClass={"bg-[#3149BB] font-fraunces"}>
+    <Wrapper additionalClass={"bg-[#3149BB] font-fraunces text-white"}>
       <div className="flex flex-col gap-5 pt-10 px-8  ">
-        <h1 className="font-fraunces text-4xl text-center font-bold">PerpusYuk</h1>
+        <h1 className="font-fraunces text-4xl text-center font-bold ">PerpusYuk</h1>
         <Input
           classNames={{
             base: "max-w-full sm:max-w-xs mx-auto h-10",
@@ -80,13 +80,13 @@ export default function Page() {
       </div>
       <div className="bg-white rounded-t-3xl ">
         <div className="flex flex-col gap-4 p-6">
-          <div className="flex flex-row gap-8 ">
-            <div className="bg-pink-100/40 rounded-xl p-2 backdrop-blur">
-              <Image src={"/book1.png"} className="w-40"/>
+          <div className="flex flex-row gap-4">
+            <div className="bg-pink-100/40 rounded-xl p-2 backdrop-blur flex-shrink-0">
+              <Image src={"/book1.png"} className="h-28 w-28"/>
             </div>
-            <div className="flex flex-col text-black gap-5 w-full">
+            <div className="flex flex-col text-black sm:gap-1 lg:gap-4 lg:w-full">
               <h1>Management</h1>
-              <div className="flex flex-row justify-between items-center ">
+              <div className="flex flex-row justify-between items-center">
                 <h1 className="text-2xl font-semibold">Show Your Work</h1>
                 <IoIosArrowForward className="text-2xl"/>
               </div>
