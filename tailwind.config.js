@@ -16,7 +16,7 @@ module.exports = {
       },
       fontFamily: {
         'nunito': "Nunito",
-        'gabarito': "Gabarito",
+        'montserrat': "Montserrat",
         'fraunces': "Fraunces",
         'acorn': "Acorn"
       }
