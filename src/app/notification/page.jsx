@@ -1,5 +1,4 @@
-import {Avatar, Chip, Divider, Image} from "@nextui-org/react";
-import {FaCheckCircle, FaExclamation, FaExclamationCircle, FaTimesCircle} from "react-icons/fa";
+import {Avatar, Divider} from "@nextui-org/react";
 import Wrapper from "@/components/Wrapper";
 import Navbar from "@/components/Navbar";
 

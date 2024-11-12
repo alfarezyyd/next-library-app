@@ -1,10 +1,9 @@
 import Wrapper from "@/components/Wrapper";
-import {Divider, Image, Link} from "@nextui-org/react";
+import {Divider, Image} from "@nextui-org/react";
 import {BsFillStarFill} from "react-icons/bs";
 
 export default function Page() {
-  return (
-    <Wrapper additionalClass={"bg-[#3149BB] font-fraunces"}>
+  return (<Wrapper additionalClass={"bg-[#3149BB] font-fraunces"}>
       <div className="flex flex-col items-center gap-5 pt-10 px-8">
         <h1 className="text-3xl text-center font-bold">Book Details</h1>
       </div>
@@ -52,6 +51,5 @@ export default function Page() {
           </button>
         </div>
       </div>
-    </Wrapper>
-  );
+    </Wrapper>);
 }

@@ -9,4 +9,3 @@ export default function Wrapper({children, additionalClass}) {
     </div>
   );
 }
-Œ
