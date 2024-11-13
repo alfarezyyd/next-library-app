@@ -43,6 +43,34 @@ export default function Page() {
     }
   }
 
+  async function triggerDelete(id) {
+    setLoading(true);
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}books/${id}`, {
+        method: 'DELETE',
+        includeCredentials: true,
+        headers: {
+          Accept: 'application/json', 'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`,
+        },
+      });
+      const responseBody = await response.json();
+      if (response.ok) {
+        setAllBook(responseBody['result']['data']);
+        setAllBook((prevAllBook) => prevAllBook.filter((book) => book.id !== id));
+      } else {
+      }
+    } catch (e) {
+      console.log(e)
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+
+  }, [allBook])
+
   return (
     <Wrapper additionalClass={"font-fraunces bg-[#3149BB]"}>
       <div className="pt-8 flex flex-col gap-2 items-center pb-4">
@@ -72,7 +100,9 @@ export default function Page() {
                       <Button isIconOnly color="primary" aria-label="Edit">
                         <FaPen/>
                       </Button>
-                      <Button isIconOnly color="danger" aria-label="Edit">
+                      <Button isIconOnly color="danger" aria-label="Edit" onClick={() => {
+                        triggerDelete(book.id)
+                      }}>
                         <FaTrash/>
                       </Button>
                     </div>
