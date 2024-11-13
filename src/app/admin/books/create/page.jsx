@@ -91,7 +91,7 @@ export default function Page() {
 
       const responseBody = await response.json();
       if (response.ok) {
-        console.log(responseBody['result']);
+        push('/admin/books')
       } else {
         console.log(responseBody);
         const errorMessages = {};

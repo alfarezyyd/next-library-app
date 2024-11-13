@@ -4,8 +4,45 @@ import Navbar from "@/components/Navbar";
 import {Button, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow} from "@nextui-org/react";
 import {FaPen, FaTrash} from "react-icons/fa6";
 import Link from "next/link";
+import {useEffect, useState} from "react";
+import Cookies from "js-cookie";
 
 export default function Page() {
+  const [accessToken, setAccessToken] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [allBook, setAllBook] = useState([]);
+  useEffect(() => {
+    setAccessToken(Cookies.get("accessToken"));
+  }, [])
+  useEffect(() => {
+    if (accessToken) {
+      fetchAllBooks()
+    }
+  }, [accessToken])
+  const fetchAllBooks = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}books`, {
+        method: 'GET',
+        includeCredentials: true,
+        headers: {
+          Accept: 'application/json', 'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`,
+        },
+      });
+
+      const responseBody = await response.json();
+      if (response.ok) {
+        setAllBook(responseBody['result']['data']);
+      } else {
+      }
+    } catch (e) {
+      console.log(e)
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <Wrapper additionalClass={"font-fraunces bg-[#3149BB]"}>
       <div className="pt-8 flex flex-col gap-2 items-center pb-4">
@@ -18,30 +55,33 @@ export default function Page() {
         <Button as={Link} href={"/admin/books/create"} color="primary" className={"my-4"} variant="shadow">
           Tambah Data
         </Button>
-        <Table aria-label="Example static collection table">
-          <TableHeader>
-            <TableColumn>NAME</TableColumn>
-            <TableColumn>STATUS</TableColumn>
-            <TableColumn className={"text-center"}>ACTIVE</TableColumn>
-          </TableHeader>
-          <TableBody>
-            <TableRow key="1">
-              <TableCell>Tony Reichert</TableCell>
-              <TableCell>Active</TableCell>
-              <TableCell>
-                <div className="flex flex-row gap-4 justify-center">
-                  <Button isIconOnly color="primary" aria-label="Edit">
-                    <FaPen/>
-                  </Button>
-                  <Button isIconOnly color="danger" aria-label="Edit">
-                    <FaTrash/>
-                  </Button>
-                </div>
-              </TableCell>
-            </TableRow>
-
-          </TableBody>
-        </Table>
+        {!loading &&
+          <Table aria-label="Example static collection table">
+            <TableHeader>
+              <TableColumn>NAME</TableColumn>
+              <TableColumn>CATEGORY</TableColumn>
+              <TableColumn className={"text-center"}>ACTIVE</TableColumn>
+            </TableHeader>
+            <TableBody>
+              {allBook.map((book) => (
+                <TableRow key={`book-${book.id}`}>
+                  <TableCell>{book.title}</TableCell>
+                  <TableCell>{book.category.name}</TableCell>
+                  <TableCell>
+                    <div className="flex flex-row gap-4 justify-center">
+                      <Button isIconOnly color="primary" aria-label="Edit">
+                        <FaPen/>
+                      </Button>
+                      <Button isIconOnly color="danger" aria-label="Edit">
+                        <FaTrash/>
+                      </Button>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        }
       </div>
       <Navbar whichActive={'Notification'}/>
     </Wrapper>
