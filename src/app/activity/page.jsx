@@ -42,8 +42,8 @@ export default function Page() {
               <div className="bg-green-500 p-4 rounded-xl my-4 mr-auto shadow-md w-full">
                 <div className="flex flex-row items-center relative">
                   <div>
-                    <h3 className="font-semibold text-lg mb-1">Package Booked</h3>
-                    <p className="leading-tight text-justify w-full">
+                    <h3 className="font-semibold text-md mb-1 lg:text-xl">Meminjam</h3>
+                    <p className="leading-tight text-justify w-full text-sm lg:text-lg">
                       21 July 2021
                     </p>
                   </div>
@@ -51,7 +51,9 @@ export default function Page() {
                     className="absolute left-1/2 transform ml-0.5 -translate-x-1/2 top-1/2 -translate-y-1/2 bg-blue-500 rounded-full shadow text-center h-8 w-8 flex items-center justify-center">
                     <FaCheckCircle className="text-white"/>
                   </div>
-                  <div className="ml-auto">09</div>
+                  <div className="ml-auto lg:text-xl">
+                    <h1>Suara Nusa</h1>
+                  </div>
                 </div>
               </div>
             </div>

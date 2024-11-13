@@ -25,18 +25,18 @@ export default function Page() {
         </div>
       </div>
       <div className="bg-white relative bottom-14 mx-12 rounded-3xl shadow-xl text-black backdrop-blur-2xl p-5">
-        <div className="flex flex-row justify-center items-center gap-4">
+        <div className="flex flex-row justify-center items-center gap-2 lg:gap-4">
           <div className="flex flex-col gap-4">
-            <Chip size="lg" className="text-lg"><FaAddressCard/></Chip>
-            <Chip size="lg" className="text-lg"><IoCall/></Chip>
-            <Chip size="lg" className="text-lg"><IoMdMail/></Chip>
-            <Chip size="lg" className="text-lg"><HiLibrary/></Chip>
+            <Chip size="lg" className="text-md lg:text-lg"><FaAddressCard/></Chip>
+            <Chip size="lg" className="text-md lg:text-lg"><IoCall/></Chip>
+            <Chip size="lg" className="text-md lg:text-lg"><IoMdMail/></Chip>
+            <Chip size="lg" className="text-md lg:text-lg"><HiLibrary/></Chip>
           </div>
-          <div className="flex flex-col gap-4">
-            <Chip size="lg" className="text-lg">2210631250037</Chip>
-            <Chip size="lg" className="text-lg">089621232132</Chip>
-            <Chip size="lg" className="text-lg">student.eed@gmail.com</Chip>
-            <Chip size="lg" className="text-lg">Ilmu Pendidikan</Chip>
+          <div className="flex flex-col flex-wrap gap-4">
+            <Chip size="lg" className="text-md lg:text-lg">2210631250037</Chip>
+            <Chip size="lg" className="text-md lg:text-lg">089621232132</Chip>
+            <Chip size="lg" className="text-md lg:text-lg">student.eed@gmail.com</Chip>
+            <Chip size="lg" className="text-md lg:text-lg">Ilmu Pendidikan</Chip>
           </div>
         </div>
         <a href="/activity" className="-m-5 mt-5 rounded-b-3xl bg-sky-200 flex flex-row justify-center gap-2 items-center">
