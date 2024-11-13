@@ -1,6 +1,7 @@
 "use client"
 import Image from "next/image";
-import {Button, Divider, Input, Link} from "@nextui-org/react";
+import {Button, Divider} from "@nextui-org/react";
+import Link from "next/link"
 import {FaGoogle} from "react-icons/fa";
 import Wrapper from "@/components/Wrapper";
 import {useState} from "react";
@@ -32,16 +33,17 @@ export default function Page() {
       <h1 className="pt-4 text-blue-900 text-3xl text-center font-bold">
         Perpusyuk!
       </h1>
-      <p className="text-blue-900 text-sm text-center px-16 md:text-md">
+      <p className="text-blue-900 text-sm text-center px-16 md:text-lg">
         Baca dan pinjam buku dari kampus dengan mudah dan cepat!
       </p>
       <div className="mt-2 flex flex-col gap-6">
-        <Button as={Link} href={"/catalog"}
+        <Button as={Link} href={"/auth/login"}
                 className="w-64 rounded-full bg-gradient-to-r from-teal-400 to-blue-500 hover:from-pink-500 hover:to-orange-500 "
                 color="primary" size="lg">
           Login
         </Button>
-        <Button color="primary" className="w-64 rounded-full" variant="bordered" size="lg">
+        <Button as={Link} href={"/auth/register"} color="primary" className="w-64 rounded-full" variant="bordered"
+                size="lg">
           Register
         </Button>
       </div>
