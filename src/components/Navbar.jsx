@@ -7,7 +7,7 @@ export default function Navbar({whichActive}) {
     style={{paddingBottom: "env(safe-area-inset-bottom)"}} // Tambahkan padding safe-area untuk iOS
   >
     <div
-      className="bg-[#005EEC] shadow-lg py-3 mb-5 flex justify-evenly items-center rounded-full max-w-xs  w-full">
+      className="bg-[#005EEC] shadow-lg py-3 mb-5 flex justify-evenly items-center rounded-full max-w-xs w-full">
       <a
         href={"/catalog"}
         className={`flex flex-row items-center gap-2 rounded-full box-border ${whichActive === "Home" ? "text-blue-600 bg-white p-3" : ""} p-2`}
