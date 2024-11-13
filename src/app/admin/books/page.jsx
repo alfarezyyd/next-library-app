@@ -97,7 +97,7 @@ export default function Page() {
                   <TableCell>{book.category.name}</TableCell>
                   <TableCell>
                     <div className="flex flex-row gap-4 justify-center">
-                      <Button isIconOnly color="primary" aria-label="Edit">
+                      <Button isIconOnly color="primary" aria-label="Edit" as={Link} href={`/admin/books/update/${book.id}`}>
                         <FaPen/>
                       </Button>
                       <Button isIconOnly color="danger" aria-label="Edit" onClick={() => {
