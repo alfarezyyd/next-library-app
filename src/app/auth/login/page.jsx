@@ -6,11 +6,54 @@ import Wrapper from "@/components/Wrapper";
 import {useState} from "react";
 import {EyeSlashFilledIcon} from "@/components/icon/EyeSlashFilledIcon";
 import {EyeFilledIcon} from "@/components/icon/EyeFilledIcon";
+import Cookies from "js-cookie";
+import {useRouter} from "next/navigation";
 
 export default function Page() {
   const [isVisible, setIsVisible] = useState(false);
-
+  const [payloadRequest, setPayloadRequest] = useState({});
+  const [loading, setLoading] = useState(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
+  const [userError, setUserError] = useState({});
+  const {push} = useRouter();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setUserError({});
+    try {
+      console.log(payloadRequest);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}authentication/sign-in`, {
+        method: 'POST', headers: {
+          Accept: 'application/json', 'Content-Type': 'application/json',
+        }, body: JSON.stringify(payloadRequest),
+      });
+
+      const responseBody = await response.json();
+      if (response.ok) {
+        Cookies.set('accessToken', responseBody['result']['data']['accessToken']);
+        push(`${process.env.NEXT_PUBLIC_BASE_URL}/catalog`);  // Redirect to the dashboard or another protected route
+      } else {
+        console.log(responseBody);
+        const errorMessages = {};
+        responseBody.errors.message.forEach((error) => {
+          errorMessages[error.path[0]] = error.message;
+        });
+        setUserError(errorMessages)
+      }
+    } catch (e) {
+      console.log(e)
+    } finally {
+      setLoading(false);
+    }
+  }
+
+
+  const onChangeHandler = (e) => {
+    const {name, value} = e.target
+    setPayloadRequest((prevPayloadRequest) => {
+      return {...prevPayloadRequest, [name]: value}
+    })
+  }
 
   return (
     <Wrapper additionalClass="bg-sky-200">
@@ -37,8 +80,12 @@ export default function Page() {
         <Input
           isRequired
           type="email"
+          name="email"
           label="Email"
           className="max-w-xs"
+          onChange={onChangeHandler}
+          isInvalid={userError.email}
+          errorMessage={userError.email ? userError.email : ""}
         />
         <Input
           isRequired
@@ -56,8 +103,12 @@ export default function Page() {
           }
           type={isVisible ? "text" : "password"}
           className="max-w-xs"
+          name="password"
+          onChange={onChangeHandler}
+          isInvalid={userError.password}
+          errorMessage={userError.password ? userError.password : ""}
         />
-        <Button as={Link} href={"/catalog"} color="primary">
+        <Button onClick={handleSubmit} color="primary">
           Login
         </Button>
         <Link href="/auth/forgot-password" className="relative inline-block text-blue-600">
