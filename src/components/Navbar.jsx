@@ -3,7 +3,7 @@ import {FaHouse} from "react-icons/fa6";
 
 export default function Navbar({whichActive}) {
   return (<div
-    className="fixed bottom-12 md:bottom-0 w-full flex justify-center items-center font-fraunces"
+    className="fixed bottom-12 md:bottom-0 w-full flex justify-center items-center font-fraunces text-white"
     style={{paddingBottom: "env(safe-area-inset-bottom)"}} // Tambahkan padding safe-area untuk iOS
   >
     <div
