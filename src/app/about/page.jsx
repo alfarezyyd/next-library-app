@@ -1,10 +1,28 @@
+"use client"
 import Image from "next/image";
-import {Button, Input, Link} from "@nextui-org/react";
-import {FaGoogle} from "react-icons/fa";
 import Wrapper from "@/components/Wrapper";
 import Navbar from "@/components/Navbar";
+import {useEffect, useState} from "react";
+import {CommonUtil} from "@/helper/CommonUtil";
+import Cookies from "js-cookie";
+import {FaBook, FaList, FaUser} from "react-icons/fa";
+import {FaCircleInfo} from "react-icons/fa6";
 
 export default function Page() {
+  const [accessToken, setAccessToken] = useState("");
+  const [decodedToken, setDecodedToken] = useState();
+  useEffect(() => {
+    setAccessToken(Cookies.get("accessToken"));
+  }, []);
+
+  useEffect(() => {
+    if (accessToken !== "") {
+      const decodedToken =
+        CommonUtil.parseJwt(accessToken);
+      setDecodedToken(decodedToken);
+    }
+  }, [accessToken]);
+
   return (
     <Wrapper additionalClass={"bg-sky-200"}>
       <div className="bg-white pt-4">
@@ -23,16 +41,77 @@ export default function Page() {
             className="shape-fill"></path>
         </svg>
       </div>
-      <div className="flex flex-col justify-center items-center bg-sky-200 gap-4 p-4 mt-4">
-        <h1 className="text-black font-acorn font-semibold tracking-widest">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor eaque et fugit impedit iste officia placeat,
-          quae quisquam vel voluptatum.
-        </h1>
-        <h1 className="text-black font-acorn font-light">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum debitis deleniti harum possimus quos! Ab, atque
-          beatae debitis dicta harum, hic impedit magni necessitatibus nesciunt possimus quidem ullam. Cupiditate,
-          laboriosam.
-        </h1>
+      {decodedToken?.role === "MEMBER1" && (
+        <div className="flex flex-col justify-center items-center bg-sky-200 gap-4 p-4 mt-4">
+          <h1 className="text-black font-acorn font-semibold tracking-widest">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor eaque et fugit impedit iste officia placeat,
+            quae quisquam vel voluptatum.
+          </h1>
+          <h1 className="text-black font-acorn font-light">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum debitis deleniti harum possimus quos! Ab,
+            atque
+            beatae debitis dicta harum, hic impedit magni necessitatibus nesciunt possimus quidem ullam. Cupiditate,
+            laboriosam.
+          </h1>
+        </div>
+      )}
+      <div className={"px-12 font-fraunces mt-5"}>
+        {console.log(decodedToken?.role)}
+        {decodedToken?.role === "MEMBER" && (
+          <div className="flex flex-col gap-4">
+            <div className="relative bg-white p-5 shadow-xl rounded-3xl overflow-hidden group">
+              <div className="flex flex-row gap-5 items-center  relative z-10">
+                <div
+                  className="p-2 rounded-full  transition duration-300 bg-blue-600 text-white group-hover:bg-white group-hover:text-blue-600">
+                  <FaBook/>
+                </div>
+                <h1 className="text-xl text-blue-600 group-hover:text-white">Manajemen Buku</h1>
+              </div>
+              {/* Pseudo-element menggunakan Tailwind utility classes */}
+              <div
+                className="absolute inset-0 bg-blue-600 transform -translate-x-full transition-transform duration-500 group-hover:translate-x-0 z-0"></div>
+            </div>
+            <div className="relative bg-white p-5 shadow-xl rounded-3xl overflow-hidden group">
+              <div className="flex flex-row gap-5 items-center  relative z-10">
+                <div
+                  className="p-2 rounded-full  transition duration-300 bg-blue-600 text-white group-hover:bg-white group-hover:text-blue-600">
+                  <FaUser/>
+                </div>
+                <h1 className="text-xl text-blue-600 group-hover:text-white">Manajemen User</h1>
+              </div>
+              {/* Pseudo-element menggunakan Tailwind utility classes */}
+              <div
+                className="absolute inset-0 bg-blue-600 transform -translate-x-full transition-transform duration-500 group-hover:translate-x-0 z-0"></div>
+            </div>
+
+            <div className="relative bg-white p-5 shadow-xl rounded-3xl overflow-hidden group">
+              <div className="flex flex-row gap-5 items-center  relative z-10">
+                <div
+                  className="p-2 rounded-full  transition duration-300 bg-blue-600 text-white group-hover:bg-white group-hover:text-blue-600">
+                  <FaList/>
+                </div>
+                <h1 className="text-xl text-blue-600 group-hover:text-white">Manajemen Kategori</h1>
+              </div>
+              {/* Pseudo-element menggunakan Tailwind utility classes */}
+              <div
+                className="absolute inset-0 bg-blue-600 transform -translate-x-full transition-transform duration-500 group-hover:translate-x-0 z-0"></div>
+            </div>
+            <div className="relative bg-white p-5 shadow-xl rounded-3xl overflow-hidden group">
+              <div className="flex flex-row gap-5 items-center  relative z-10">
+                <div
+                  className="p-2 rounded-full  transition duration-300 bg-blue-600 text-white group-hover:bg-white group-hover:text-blue-600">
+                  <FaCircleInfo/>
+                </div>
+                <h1 className="text-xl text-blue-600 group-hover:text-white">Tentang Aplikasi</h1>
+              </div>
+              {/* Pseudo-element menggunakan Tailwind utility classes */}
+              <div
+                className="absolute inset-0 bg-blue-600 transform -translate-x-full transition-transform duration-500 group-hover:translate-x-0 z-0"></div>
+            </div>
+
+
+          </div>
+        )}
       </div>
       <Navbar whichActive={"About"}/>
     </Wrapper>
