@@ -7,6 +7,7 @@ import {CommonUtil} from "@/helper/CommonUtil";
 import Cookies from "js-cookie";
 import {FaBook, FaList, FaUser} from "react-icons/fa";
 import {FaCircleInfo} from "react-icons/fa6";
+import Link from "next/link";
 
 export default function Page() {
   const [accessToken, setAccessToken] = useState("");
@@ -56,17 +57,18 @@ export default function Page() {
         </div>
       )}
       <div className={"px-12 font-fraunces mt-5"}>
-        {console.log(decodedToken?.role)}
         {decodedToken?.role === "MEMBER" && (
           <div className="flex flex-col gap-4">
             <div className="relative bg-white p-5 shadow-xl rounded-3xl overflow-hidden group">
-              <div className="flex flex-row gap-5 items-center  relative z-10">
-                <div
-                  className="p-2 rounded-full  transition duration-300 bg-blue-600 text-white group-hover:bg-white group-hover:text-blue-600">
-                  <FaBook/>
+              <Link href={"/admin/books/"}>
+                <div className="flex flex-row gap-5 items-center  relative z-10">
+                  <div
+                    className="p-2 rounded-full  transition duration-300 bg-blue-600 text-white group-hover:bg-white group-hover:text-blue-600">
+                    <FaBook/>
+                  </div>
+                  <h1 className="text-xl text-blue-600 group-hover:text-white">Manajemen Buku</h1>
                 </div>
-                <h1 className="text-xl text-blue-600 group-hover:text-white">Manajemen Buku</h1>
-              </div>
+              </Link>
               {/* Pseudo-element menggunakan Tailwind utility classes */}
               <div
                 className="absolute inset-0 bg-blue-600 transform -translate-x-full transition-transform duration-500 group-hover:translate-x-0 z-0"></div>
