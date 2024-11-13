@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import {IoIosArrowForward} from "react-icons/io";
 import {useEffect, useState} from "react";
 import Cookies from "js-cookie";
+import {Loading} from "@/components/Loading";
 
 
 export default function Page() {
@@ -14,9 +15,10 @@ export default function Page() {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     setAccessToken(Cookies.get("accessToken", accessToken));
+    setLoading(true);
   }, []);
   useEffect(() => {
-    if (!accessToken) {
+    if (accessToken) {
       fetchPopularBooks()
     }
   }, [accessToken]);
@@ -33,17 +35,14 @@ export default function Page() {
         },
       });
 
+      console.log(accessToken);
       const responseBody = await response.json();
+      console.log(response.ok)
       if (response.ok) {
         setPopularBooks(responseBody['result']['data']);
         console.log(responseBody['result']);
       } else {
         console.log(responseBody);
-        const errorMessages = {};
-        responseBody.errors.message.forEach((error) => {
-          errorMessages[error.path[0]] = error.message;
-        });
-        setUserError(errorMessages)
       }
     } catch (e) {
       console.log(e)
@@ -110,44 +109,29 @@ export default function Page() {
           <Link href="" className="text-white relative inline-block">Technology</Link>
         </div>
       </div>
-      <div className="bg-white rounded-t-3xl">
+      <div className="bg-white rounded-t-3xl min-h-screen">
         <div className="flex flex-col gap-4 p-6">
-          <div className="flex flex-row gap-4">
-            <div className="bg-pink-100/40 rounded-xl p-2 backdrop-blur flex-shrink-0">
-              <Image src={"/book1.png"} className="h-28 w-28"/>
-            </div>
-            <div className="flex flex-col text-black gap-1 w-full">
-              <h1>Management</h1>
-              <div className="flex flex-row justify-between items-center">
-                <h1 className="text-2xl font-semibold">Show Your Work</h1>
-                <IoIosArrowForward className="text-2xl"/>
+          {popularBooks !== null ? popularBooks.map((item, index) => (
+            <div key={`book-${item.id}`}>
+              <div className="flex flex-row gap-4">
+                <div className="bg-pink-100/40 rounded-xl p-2 backdrop-blur flex-shrink-0">
+                  <Image src={"/book1.png"} className="h-28 w-28"/>
+                </div>
+                <div className="flex flex-col text-black gap-4 w-full">
+                  <h1>{item.category.name}</h1>
+                  <div className="flex flex-row justify-between items-center">
+                    <h1 className="text-2xl font-semibold">{item.title}</h1>
+                    <IoIosArrowForward className="text-2xl"/>
+                  </div>
+                  <h1 className="font-light">{item.author}</h1>
+                </div>
               </div>
-              <h1 className="font-light">Antonio Bonaparte</h1>
+              <hr className="-mx-6"/>
             </div>
-          </div>
-          <hr className="-mx-6"/>
-          <div className="flex flex-row gap-8">
-            <div className="bg-pink-100/40 rounded-xl p-2 backdrop-blur">
-              <Image src={"/book1.png"} className="h-28 w-28"/>
-            </div>
-            <div className="flex flex-col text-black gap-1">
-              <h1>Management</h1>
-              <h1 className="text-2xl font-semibold">Show Your Work</h1>
-              <h1 className="font-light">Antonio Bonaparte</h1>
-            </div>
-          </div>
-          <hr className="-mx-6"/>
-          <div className="flex flex-row gap-8">
-            <div className="bg-pink-100/40 rounded-xl p-2 backdrop-blur">
-              <Image src={"/book1.png"} className="h-28 w-28"/>
-            </div>
-            <div className="flex flex-col text-black gap-1">
-              <h1>Management</h1>
-              <h1 className="text-2xl font-semibold">Show Your Work</h1>
-              <h1 className="font-light">Antonio Bonaparte</h1>
-            </div>
-          </div>
-          <hr className="-mx-6"/>
+          )) : (
+            <Loading/>
+          )}
+
         </div>
       </div>
       <Navbar whichActive={"Home"}/>
