@@ -56,7 +56,7 @@ export default function Page() {
           </h1>
         </div>
       )}
-      <div className={"px-12 font-fraunces mt-5"}>
+      <div className={"px-12 font-fraunces mt-3"}>
         {decodedToken?.role === "MEMBER" && (
           <div className="flex flex-col gap-4">
             <div className="relative bg-white p-5 shadow-xl rounded-3xl overflow-hidden group">
@@ -66,7 +66,7 @@ export default function Page() {
                     className="p-2 rounded-full  transition duration-300 bg-blue-600 text-white group-hover:bg-white group-hover:text-blue-600">
                     <FaBook/>
                   </div>
-                  <h1 className="text-xl text-blue-600 group-hover:text-white">Manajemen Buku</h1>
+                  <h1 className="text-xl text-blue-600 group-hover:text-white">Manage Book</h1>
                 </div>
               </Link>
               {/* Pseudo-element menggunakan Tailwind utility classes */}
@@ -79,7 +79,7 @@ export default function Page() {
                   className="p-2 rounded-full  transition duration-300 bg-blue-600 text-white group-hover:bg-white group-hover:text-blue-600">
                   <FaUser/>
                 </div>
-                <h1 className="text-xl text-blue-600 group-hover:text-white">Manajemen User</h1>
+                <h1 className="text-xl text-blue-600 group-hover:text-white">Manage Loan</h1>
               </div>
               {/* Pseudo-element menggunakan Tailwind utility classes */}
               <div
@@ -92,7 +92,7 @@ export default function Page() {
                   className="p-2 rounded-full  transition duration-300 bg-blue-600 text-white group-hover:bg-white group-hover:text-blue-600">
                   <FaList/>
                 </div>
-                <h1 className="text-xl text-blue-600 group-hover:text-white">Manajemen Kategori</h1>
+                <h1 className="text-xl text-blue-600 group-hover:text-white">Manage Category</h1>
               </div>
               {/* Pseudo-element menggunakan Tailwind utility classes */}
               <div
