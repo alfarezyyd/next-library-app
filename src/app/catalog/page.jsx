@@ -4,8 +4,54 @@ import {SearchIcon} from "@/components/icon/SearchIcon";
 import Wrapper from "@/components/Wrapper";
 import Navbar from "@/components/Navbar";
 import {IoIosArrowForward} from "react-icons/io";
+import {useEffect, useState} from "react";
+import Cookies from "js-cookie";
+
 
 export default function Page() {
+  const [accessToken, setAccessToken] = useState(null);
+  const [popularBooks, setPopularBooks] = useState(null);
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    setAccessToken(Cookies.get("accessToken", accessToken));
+  }, []);
+  useEffect(() => {
+    if (!accessToken) {
+      fetchPopularBooks()
+    }
+  }, [accessToken]);
+
+  async function fetchPopularBooks() {
+    console.log(accessToken);
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}books`, {
+        method: 'GET',
+        includeCredentials: true,
+        headers: {
+          Accept: 'application/json', 'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`,
+        },
+      });
+
+      const responseBody = await response.json();
+      if (response.ok) {
+        setPopularBooks(responseBody['result']['data']);
+        console.log(responseBody['result']);
+      } else {
+        console.log(responseBody);
+        const errorMessages = {};
+        responseBody.errors.message.forEach((error) => {
+          errorMessages[error.path[0]] = error.message;
+        });
+        setUserError(errorMessages)
+      }
+    } catch (e) {
+      console.log(e)
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <Wrapper additionalClass={"bg-[#3149BB] font-fraunces text-white"}>
       <div className="flex flex-col gap-5 pt-10 px-8">
