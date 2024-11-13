@@ -13,7 +13,7 @@ export default function Page() {
 
   return (<Wrapper additionalClass="bg-sky-200">
     <div className="bg-white py-7">
-      <Image src="/logo.png" width={200} height={200} alt="Logo" className="mx-auto w-64 sm:w-48"/>
+      <Image src="/logo.png" width={200} height={200} alt="Logo" className="mx-auto w-48 md:w-64"/>
     </div>
     <div className="custom-shape-divider-top-1731070628">
       <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
