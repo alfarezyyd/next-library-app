@@ -108,7 +108,7 @@ export default function Page() {
           isInvalid={userError.password}
           errorMessage={userError.password ? userError.password : ""}
         />
-        <Button onClick={handleSubmit} color="primary">
+        <Button onClick={handleSubmit} color="primary" isLoading={loading}>
           Login
         </Button>
         <Link href="/auth/forgot-password" className="relative inline-block text-blue-600">
