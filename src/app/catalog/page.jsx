@@ -104,9 +104,7 @@ export default function Page() {
           <hr className="-mx-6"/>
         </div>
       </div>
-      <div className="mb-12"> {/* Tambahkan ini sebagai ruang kosong */}
-        <Navbar whichActive={"Home"}/>
-      </div>
+      <Navbar whichActive={"Home"}/>
     </Wrapper>
   );
 }
