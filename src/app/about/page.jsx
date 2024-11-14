@@ -42,13 +42,13 @@ export default function Page() {
             className="shape-fill"></path>
         </svg>
       </div>
-      {decodedToken?.role === "MEMBER1" && (
-        <div className="flex flex-col justify-center items-center bg-sky-200 gap-4 p-4 mt-4">
-          <h1 className="text-black font-acorn font-semibold tracking-widest">
+      {decodedToken?.role === "MEMBER" && (
+        <div className="flex flex-col justify-center items-center bg-sky-200 gap-4 p-4 mt-4 px-10 md:px-12">
+          <h1 className="text-black font-acorn font-semibold tracking-widest text-lg md:text-xl">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor eaque et fugit impedit iste officia placeat,
             quae quisquam vel voluptatum.
           </h1>
-          <h1 className="text-black font-acorn font-light">
+          <h1 className="text-black font-acorn font-light text-md md:text-lg">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum debitis deleniti harum possimus quos! Ab,
             atque
             beatae debitis dicta harum, hic impedit magni necessitatibus nesciunt possimus quidem ullam. Cupiditate,
@@ -57,7 +57,7 @@ export default function Page() {
         </div>
       )}
       <div className={"px-12 font-fraunces mt-3"}>
-        {decodedToken?.role === "MEMBER" && (
+        {decodedToken?.role === "ADMIN" && (
           <div className="flex flex-col gap-4">
             <div className="relative bg-white p-5 shadow-xl rounded-3xl overflow-hidden group">
               <Link href={"/admin/books/"}>
@@ -101,19 +101,20 @@ export default function Page() {
                   className="absolute inset-0 bg-blue-600 transform -translate-x-full transition-transform duration-500 group-hover:translate-x-0 z-0"></div>
               </div>
             </Link>
-            <div className="relative bg-white p-5 shadow-xl rounded-3xl overflow-hidden group">
-              <div className="flex flex-row gap-5 items-center  relative z-10">
-                <div
-                  className="p-2 rounded-full  transition duration-300 bg-blue-600 text-white group-hover:bg-white group-hover:text-blue-600">
-                  <FaCircleInfo/>
+            <Link href={"/about/info/"}>
+              <div className="relative bg-white p-5 shadow-xl rounded-3xl overflow-hidden group">
+                <div className="flex flex-row gap-5 items-center  relative z-10">
+                  <div
+                    className="p-2 rounded-full  transition duration-300 bg-blue-600 text-white group-hover:bg-white group-hover:text-blue-600">
+                    <FaCircleInfo/>
+                  </div>
+                  <h1 className="text-xl text-blue-600 group-hover:text-white">Tentang Aplikasi</h1>
                 </div>
-                <h1 className="text-xl text-blue-600 group-hover:text-white">Tentang Aplikasi</h1>
+                {/* Pseudo-element menggunakan Tailwind utility classes */}
+                <div
+                  className="absolute inset-0 bg-blue-600 transform -translate-x-full transition-transform duration-500 group-hover:translate-x-0 z-0"></div>
               </div>
-              {/* Pseudo-element menggunakan Tailwind utility classes */}
-              <div
-                className="absolute inset-0 bg-blue-600 transform -translate-x-full transition-transform duration-500 group-hover:translate-x-0 z-0"></div>
-            </div>
-
+            </Link>
 
           </div>
         )}
