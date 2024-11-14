@@ -74,9 +74,7 @@ export default function Page() {
           'Authorization': `Bearer ${accessToken}`,
         },
       });
-      const responseBody = await response.json();
       if (response.ok) {
-        setAllLoan(responseBody['result']['data']);
         setAllLoan((prevAllLoan) => prevAllLoan.filter((loan) => loan.id !== id));
       } else {
       }
