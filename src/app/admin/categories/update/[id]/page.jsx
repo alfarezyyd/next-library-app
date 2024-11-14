@@ -6,6 +6,7 @@ import Cookies from "js-cookie";
 
 // Import FilePond styles
 import {useParams, useRouter} from "next/navigation";
+import Navbar from "@/components/Navbar";
 
 // Register the plugins
 
@@ -103,7 +104,7 @@ export default function Page() {
         <div className="bg-white bg-opacity-10 text-white px-4 py-2 rounded-full text-lg inline backdrop-blur-3xl">
           Admin
         </div>
-        <h1 className="font-fraunces text-3xl text-center font-bold text-white">Tambah Data Buku</h1>
+        <h1 className="font-fraunces text-3xl text-center font-bold text-white">Update Category</h1>
       </div>
       <div className="h-auto  p-5 text-black">
         <div className="flex flex-col items-center gap-5 max-w-xs">
@@ -134,6 +135,7 @@ export default function Page() {
             Update
           </Button></div>
       </div>
+      <Navbar whichActive={'About'}/>
     </Wrapper>
   )
 }
