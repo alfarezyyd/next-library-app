@@ -86,18 +86,20 @@ export default function Page() {
                 className="absolute inset-0 bg-blue-600 transform -translate-x-full transition-transform duration-500 group-hover:translate-x-0 z-0"></div>
             </div>
 
-            <div className="relative bg-white p-5 shadow-xl rounded-3xl overflow-hidden group">
-              <div className="flex flex-row gap-5 items-center  relative z-10">
-                <div
-                  className="p-2 rounded-full  transition duration-300 bg-blue-600 text-white group-hover:bg-white group-hover:text-blue-600">
-                  <FaList/>
+            <Link href={"/admin/categories/"}>
+              <div className="relative bg-white p-5 shadow-xl rounded-3xl overflow-hidden group">
+                <div className="flex flex-row gap-5 items-center  relative z-10">
+                  <div
+                    className="p-2 rounded-full  transition duration-300 bg-blue-600 text-white group-hover:bg-white group-hover:text-blue-600">
+                    <FaList/>
+                  </div>
+                  <h1 className="text-xl text-blue-600 group-hover:text-white">Manage Category</h1>
                 </div>
-                <h1 className="text-xl text-blue-600 group-hover:text-white">Manage Category</h1>
+                {/* Pseudo-element menggunakan Tailwind utility classes */}
+                <div
+                  className="absolute inset-0 bg-blue-600 transform -translate-x-full transition-transform duration-500 group-hover:translate-x-0 z-0"></div>
               </div>
-              {/* Pseudo-element menggunakan Tailwind utility classes */}
-              <div
-                className="absolute inset-0 bg-blue-600 transform -translate-x-full transition-transform duration-500 group-hover:translate-x-0 z-0"></div>
-            </div>
+            </Link>
             <div className="relative bg-white p-5 shadow-xl rounded-3xl overflow-hidden group">
               <div className="flex flex-row gap-5 items-center  relative z-10">
                 <div
