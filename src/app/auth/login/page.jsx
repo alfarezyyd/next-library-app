@@ -3,11 +3,11 @@ import Image from "next/image";
 import {Button, Input, Link} from "@nextui-org/react";
 import {FaGoogle} from "react-icons/fa";
 import Wrapper from "@/components/Wrapper";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {EyeSlashFilledIcon} from "@/components/icon/EyeSlashFilledIcon";
 import {EyeFilledIcon} from "@/components/icon/EyeFilledIcon";
 import Cookies from "js-cookie";
-import {useRouter} from "next/navigation";
+import {useRouter, useSearchParams} from "next/navigation";
 
 export default function Page() {
   const [isVisible, setIsVisible] = useState(false);
@@ -47,6 +47,24 @@ export default function Page() {
     }
   }
 
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    // Ambil token dari URL
+    const token = searchParams.get('token');
+
+    if (token) {
+      // Simpan token di cookie
+      Cookies.set('accessToken', token);
+
+      // Redirect ke halaman dashboard setelah login
+      router.push('/catalog');
+    } else {
+      // Jika tidak ada token, redirect ke halaman login
+      router.push('/auth/login');
+    }
+  }, [searchParams, router]);
 
   const onChangeHandler = (e) => {
     const {name, value} = e.target
@@ -114,7 +132,8 @@ export default function Page() {
         <Link href="/auth/forgot-password" className="relative inline-block text-blue-600">
           <span className="hover-underline-effect">Lupa Kata Sandi?</span>
         </Link>
-        <Button color="primary" className="" variant="bordered" startContent={<FaGoogle/>}>
+        <Button color="primary" className="" variant="bordered" startContent={<FaGoogle/>} as={Link}
+                href={`${process.env.NEXT_PUBLIC_BACKEND_URL}authentication/google`}>
           Login By Google
         </Button>
       </div>

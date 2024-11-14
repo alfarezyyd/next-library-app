@@ -122,7 +122,8 @@ export default function Page() {
         <Link href="/auth/forgot-password" className="relative inline-block text-blue-600">
           <span className="hover-underline-effect">Lupa Kata Sandi?</span>
         </Link>
-        <Button color="primary" className="" variant="bordered" startContent={<FaGoogle/>}>
+        <Button color="primary" className="" variant="bordered" startContent={<FaGoogle/>} as={Link}
+                href={`${process.env.NEXT_PUBLIC_BACKEND_URL}authentication/google`}>
           Register By Google
         </Button>
       </div>

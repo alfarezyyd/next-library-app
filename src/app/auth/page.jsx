@@ -54,7 +54,8 @@ export default function Page() {
       </div>
     </div>
     <div className="mt-4 flex flex-col justify-around font-montserrat mx-16 gap-4">
-      <Button radius="sm" startContent={<FaGoogle/>} variant="ghost" color="primary">
+      <Button radius="sm" startContent={<FaGoogle/>} variant="ghost" color="primary" as={Link}
+              href={`${process.env.NEXT_PUBLIC_BACKEND_URL}authentication/google`}>
         Login with Google
       </Button>
       <Button radius="sm" startContent={<FaAddressCard/>} variant="ghost" color="primary">
