@@ -24,7 +24,6 @@ export default function Page() {
   }, [accessToken]);
 
   async function fetchPopularBooks() {
-    console.log(accessToken);
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}books`, {
         method: 'GET',
@@ -112,7 +111,7 @@ export default function Page() {
       <div className="bg-white rounded-t-3xl min-h-screen">
         <div className="flex flex-col gap-4 p-6">
           {popularBooks !== null ? popularBooks.map((item, index) => (
-            <div key={`book-${item.id}`}>
+            <Link key={`book-${item.id}`} href={`/books/${item.id}`}>
               <div className="flex flex-row gap-4">
                 <div className="bg-pink-100/40 rounded-xl p-2 backdrop-blur flex-shrink-0">
                   <Image src={"/book1.png"} className="h-28 w-28"/>
@@ -127,7 +126,7 @@ export default function Page() {
                 </div>
               </div>
               <hr className="-mx-6"/>
-            </div>
+            </Link>
           )) : (
             <Loading/>
           )}
