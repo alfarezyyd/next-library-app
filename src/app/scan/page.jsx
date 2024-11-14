@@ -56,7 +56,7 @@ export default function Page() {
       <div className="mt-5 bg-white mx-8 rounded-2xl h-96 p-5">
         {scanResult ? (
           <div className={"text-black text-center text-2xl align-middle flex flex-col justify-center h-full"}>
-            <h1>Klik <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/books/${scanResult}`} className={"text-blue-600"}>
+            <h1>Klik <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}books/${scanResult}`} className={"text-blue-600"}>
               Link Berikut
             </Link></h1>
           </div>
