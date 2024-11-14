@@ -22,8 +22,31 @@ export default function Page() {
     if (accessToken) {
       fetchPopularBooks()
       fetchAllCategories()
+      triggerNotification()
     }
   }, [accessToken]);
+
+  async function triggerNotification() {
+    setLoading(true)
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}notifications`, {
+        method: 'POST',
+        includeCredentials: true,
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      if (response.ok) {
+      } else {
+      }
+    } catch (e) {
+      console.log(e)
+    } finally {
+      setLoading(false);
+    }
+  }
 
   async function fetchPopularBooks() {
     try {
