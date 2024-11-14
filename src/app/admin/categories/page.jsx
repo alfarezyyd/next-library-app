@@ -56,7 +56,6 @@ export default function Page() {
       });
       const responseBody = await response.json();
       if (response.ok) {
-        setAllCategory(responseBody['result']['data']);
         setAllCategory((prevAllCategory) => prevAllCategory.filter((category) => category.id !== id));
       } else {
       }
