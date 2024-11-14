@@ -22,12 +22,13 @@ export default function Navbar({whichActive}) {
         <FaUser/>
         {whichActive === "Profile" && (<span className="text-xs font-semibold">Profile</span>)}
       </a>
-      <div
-        className={`flex flex-row items-center gap-2 p-3 rounded-full box-border ${whichActive === "House" ? "text-blue-600 bg-white" : ""} p-2`}
+      <a
+        href={"/scan"}
+        className={`flex flex-row items-center gap-2 p-3 rounded-full box-border ${whichActive === "Scan" ? "text-blue-600 bg-white" : ""} p-2`}
       >
         <FaQrcode/>
-        {whichActive === "House" && (<span className="text-xs font-semibold">Home</span>)}
-      </div>
+        {whichActive === "Scan" && (<span className="text-xs font-semibold">Scan</span>)}
+      </a>
       <a
         href={"/notification"}
         className={`flex flex-row items-center gap-2 p-3 rounded-full box-border ${whichActive === "Notification" ? "text-blue-600 bg-white " : ""} p-2`}
