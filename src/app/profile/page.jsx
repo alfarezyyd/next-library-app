@@ -1,3 +1,4 @@
+"use client"
 import {Chip, Image} from "@nextui-org/react";
 import Wrapper from "@/components/Wrapper";
 import Navbar from "@/components/Navbar";
@@ -7,8 +8,51 @@ import {IoMdMail} from "react-icons/io";
 import {HiLibrary} from "react-icons/hi";
 import {FaArrowCircleRight} from "react-icons/fa";
 import {MdModeEditOutline} from "react-icons/md";
+import {useEffect, useState} from "react";
+import Cookies from "js-cookie";
+import {useRouter} from "next/navigation";
 
 export default function Page() {
+  const [accessToken, setAccessToken] = useState();
+  const [loading, setLoading] = useState(false);
+  const [userInformation, setUserInformation] = useState();
+  const {push} = useRouter();
+  useEffect(() => {
+    setAccessToken(Cookies.get('accessToken'));
+  }, []);
+
+  useEffect(() => {
+    if (accessToken) {
+      fetchExistingProfile()
+    }
+  }, [accessToken]);
+
+  const fetchExistingProfile = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}informations`, {
+        method: 'GET',
+        includeCredentials: true,
+        headers: {
+          Accept: 'application/json', 'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`,
+        },
+      });
+
+      const responseBody = await response.json();
+      if (response.ok) {
+        if (responseBody['result']['data'] === null) {
+          push('/profile/manage')
+        }
+        setUserInformation(responseBody['result']['data']);
+      } else {
+      }
+    } catch (e) {
+      console.log(e)
+    } finally {
+      setLoading(false);
+    }
+  }
   return (
     <Wrapper additionalClass="font-fraunces bg-white text-white">
       <div className="pt-8 bg-[#3149BB]">
