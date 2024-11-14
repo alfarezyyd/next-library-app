@@ -13,6 +13,7 @@ export default function Page() {
   const [accessToken, setAccessToken] = useState(null);
   const [popularBooks, setPopularBooks] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [allCategory, setAllCategory] = useState(null);
   useEffect(() => {
     setAccessToken(Cookies.get("accessToken", accessToken));
     setLoading(true);
@@ -20,6 +21,7 @@ export default function Page() {
   useEffect(() => {
     if (accessToken) {
       fetchPopularBooks()
+      fetchAllCategories()
     }
   }, [accessToken]);
 
@@ -50,6 +52,29 @@ export default function Page() {
     }
   }
 
+  const fetchAllCategories = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}categories`, {
+        method: 'GET',
+        includeCredentials: true,
+        headers: {
+          Accept: 'application/json', 'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`,
+        },
+      });
+
+      const responseBody = await response.json();
+      if (response.ok) {
+        setAllCategory(responseBody['result']['data']);
+      } else {
+      }
+    } catch (e) {
+      console.log(e)
+    } finally {
+      setLoading(false);
+    }
+  }
   return (
     <Wrapper additionalClass={"bg-[#3149BB] font-fraunces text-white"}>
       <div className="flex flex-col gap-5 pt-10 px-8">
@@ -97,15 +122,16 @@ export default function Page() {
             </div>
           </div>
         </div>
-        <div className="flex flex-row gap-4 overflow-x-auto whitespace-nowrap">
+        <div className="flex flex-row gap-4 overflow-x-auto whitespace-nowrap mb-2">
           <Link href="" className="text-white relative inline-block link-active">Popular</Link>
-          <Link href="" className="text-white relative inline-block">Art</Link>
-          <Link href="" className="text-white relative inline-block">Technology</Link>
-          <Link href="" className="text-white relative inline-block">Technology</Link>
-          <Link href="" className="text-white relative inline-block">Technology</Link>
-          <Link href="" className="text-white relative inline-block">Technology</Link>
-          <Link href="" className="text-white relative inline-block">Technology</Link>
-          <Link href="" className="text-white relative inline-block">Technology</Link>
+          {
+            allCategory && allCategory.map((category) => (
+                <Link key={`category-${category.id}`} href={`/admin/catalog/${category.id}`}
+                      className="text-white relative inline-block">{category.name}</Link>
+              )
+            )
+          }
+
         </div>
       </div>
       <div className="bg-white rounded-t-3xl min-h-screen">
