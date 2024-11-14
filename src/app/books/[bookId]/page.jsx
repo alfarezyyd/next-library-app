@@ -93,7 +93,7 @@ export default function Page() {
           />
         </div>
         <div
-          className="bg-white flex flex-col mt-24 items-center rounded-t-3xl text-gray-600 pt-36 px-10 pb-10 w-full max-w-md ">
+          className="bg-white flex flex-col mt-24 items-center rounded-t-3xl text-gray-600 pt-36 px-10 pb-10 w-full max-w-xs md:max-w-md md:min-h-screen">
           <div className="text-center flex flex-col gap-4 items-center">
             <h1 className="text-3xl font-bold">{book.title}</h1>
             <h2 className="text-xl font-semibold text-gray-500">{book.author}</h2>
