@@ -149,7 +149,7 @@ export default function Page() {
           <Link href="" className="text-white relative inline-block link-active">Popular</Link>
           {
             allCategory && allCategory.map((category) => (
-                <Link key={`category-${category.id}`} href={`/admin/catalog/${category.id}`}
+                <Link key={`category-${category.id}`} href={`/catalog/${category.id}`}
                       className="text-white relative inline-block">{category.name}</Link>
               )
             )

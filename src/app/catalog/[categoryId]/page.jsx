@@ -89,8 +89,8 @@ export default function Page() {
       <div className="flex flex-col gap-5 pt-10 px-8">
         <h1 className="font-fraunces text-4xl text-center font-bold">PerpusYuk</h1>
         <div className="flex flex-row gap-4 overflow-x-auto whitespace-nowrap mb-2 mt-4">
-          <Link href=""
-                className={`text-white relative inline-block ${routerParam.categoryId === "popular" ? 'link-active' : ''}`}>Popular</Link>
+          <Link href="/catalog"
+                className={`text-white relative inline-block`}>Popular</Link>
           {
             allCategory && allCategory.map((category) => (
                 <Link key={`category-${category.id}`} href={`/admin/catalog/${category.id}`}
