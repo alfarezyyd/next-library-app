@@ -117,33 +117,20 @@ export default function Page() {
         />
         <h1 className="text-2xl font-semibold">New Collection</h1>
         <div className="flex flex-row gap-2 overflow-x-auto whitespace-nowrap">
-          <div className="w-36 rounded-lg shadow-lg overflow-hidden bg-blue-500/20 text-white relative flex-shrink-0">
-            <div className="w-36 h-32 relative z-0">
-              <Image src={"/book1.png"}/>
-            </div>
-            <div className="p-4 bg-white text-black z-50 relative">
-              <p className="text-sm text-gray-500">Art</p>
-              <h3 className="text-xl font-semibold">Gestalt</h3>
-            </div>
-          </div>
-          <div className="w-36 rounded-lg shadow-lg overflow-hidden bg-blue-500/20 text-white relative flex-shrink-0">
-            <div className="w-36 h-32 relative z-0">
-              <Image src={"/book1.png"}/>
-            </div>
-            <div className="p-4 bg-white text-black z-50 relative">
-              <p className="text-sm text-gray-500">Art</p>
-              <h3 className="text-xl font-semibold">Gestalt</h3>
-            </div>
-          </div>
-          <div className="w-36 rounded-lg shadow-lg overflow-hidden bg-blue-500/20 text-white relative flex-shrink-0">
-            <div className="w-36 h-32 relative z-0">
-              <Image src={"/book1.png"}/>
-            </div>
-            <div className="p-4 bg-white text-black z-50 relative">
-              <p className="text-sm text-gray-500">Art</p>
-              <h3 className="text-xl font-semibold">Gestalt</h3>
-            </div>
-          </div>
+          {popularBooks && (
+            popularBooks.slice(0, 5).map((book, index) => (
+              <div key={`book-${book.id}`}
+                   className="w-36 rounded-lg shadow-lg overflow-hidden bg-blue-500/20 text-white relative flex-shrink-0">
+                <div className="w-36 h-32 relative z-0">
+                  <Image src={"/book1.png"}/>
+                </div>
+                <div className="p-4 bg-white text-black z-50 relative">
+                  <p className="text-sm text-gray-500">{book.category.name}</p>
+                  <h3 className="text-xl font-semibold">{book.title}</h3>
+                </div>
+              </div>
+            ))
+          )}
         </div>
         <div className="flex flex-row gap-4 overflow-x-auto whitespace-nowrap mb-2">
           <Link href="" className="text-white relative inline-block link-active">Popular</Link>
@@ -184,5 +171,6 @@ export default function Page() {
       </div>
       <Navbar whichActive={"Home"}/>
     </Wrapper>
-  );
+  )
+    ;
 }
