@@ -54,7 +54,6 @@ export default function Page() {
           'Authorization': `Bearer ${accessToken}`,
         },
       });
-      const responseBody = await response.json();
       if (response.ok) {
         setAllCategory((prevAllCategory) => prevAllCategory.filter((category) => category.id !== id));
       } else {
