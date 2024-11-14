@@ -113,7 +113,7 @@ export default function Page() {
           </Table>
         }
       </div>
-      <Navbar whichActive={'Notification'}/>
+      <Navbar whichActive={'About'}/>
     </Wrapper>
   )
 }
