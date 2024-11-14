@@ -58,9 +58,7 @@ export default function Page() {
               href={`${process.env.NEXT_PUBLIC_BACKEND_URL}authentication/google`}>
         Login with Google
       </Button>
-      <Button radius="sm" startContent={<FaAddressCard/>} variant="ghost" color="primary">
-        Login with NPM
-      </Button>
+
     </div>
   </Wrapper>)
 }
