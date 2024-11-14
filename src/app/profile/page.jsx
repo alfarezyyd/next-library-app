@@ -6,16 +6,18 @@ import {FaAddressCard} from "react-icons/fa6";
 import {IoCall} from "react-icons/io5";
 import {IoMdMail} from "react-icons/io";
 import {HiLibrary} from "react-icons/hi";
-import {FaArrowCircleRight} from "react-icons/fa";
+import {FaArrowCircleRight, FaBookOpen} from "react-icons/fa";
 import {MdModeEditOutline} from "react-icons/md";
 import {useEffect, useState} from "react";
 import Cookies from "js-cookie";
 import {useRouter} from "next/navigation";
+import {CommonUtil} from "@/helper/CommonUtil";
 
 export default function Page() {
   const [accessToken, setAccessToken] = useState();
   const [loading, setLoading] = useState(false);
   const [userInformation, setUserInformation] = useState();
+  const [decodedToken, setDecodedToken] = useState();
   const {push} = useRouter();
   useEffect(() => {
     setAccessToken(Cookies.get('accessToken'));
@@ -24,6 +26,7 @@ export default function Page() {
   useEffect(() => {
     if (accessToken) {
       fetchExistingProfile()
+      setDecodedToken(CommonUtil.parseJwt(accessToken));
     }
   }, [accessToken]);
 
@@ -41,9 +44,8 @@ export default function Page() {
 
       const responseBody = await response.json();
       if (response.ok) {
-        if (responseBody['result']['data'] === null) {
-          push('/profile/manage')
-        }
+        console.log(responseBody['result']['data']);
+
         setUserInformation(responseBody['result']['data']);
       } else {
       }
@@ -52,13 +54,21 @@ export default function Page() {
     } finally {
       setLoading(false);
     }
+
+
   }
+
+  useEffect(() => {
+
+  }, [userInformation]);
   return (
     <Wrapper additionalClass="font-fraunces bg-white text-white">
       <div className="pt-8 bg-[#3149BB]">
         <h1 className="font-fraunces text-2xl text-center font-bold">PerpusYuk</h1>
         <div className="w-48 h-48 mask-image-blob bg-amber-500 mx-auto">
-          <Image src="/profile.png" className="w-28 h-28 top-16 left-10"/>
+          <Image
+            src={`${process.env.NEXT_PUBLIC_BACKEND_URL}public/assets/information-resources/${userInformation?.profilePath}`}
+            className="w-64 h-64 top-16 left-10"/>
         </div>
         <div className="text-center pb-8 flex flex-row justify-center gap-3 relative">
           <h1 className="text-2xl">Budi Anggoro</h1>
@@ -81,12 +91,14 @@ export default function Page() {
             <Chip size="lg" className="text-md lg:text-lg"><IoCall/></Chip>
             <Chip size="lg" className="text-md lg:text-lg"><IoMdMail/></Chip>
             <Chip size="lg" className="text-md lg:text-lg"><HiLibrary/></Chip>
+            <Chip size="lg" className="text-md lg:text-lg"><FaBookOpen/></Chip>
           </div>
           <div className="flex flex-col flex-wrap gap-4">
-            <Chip size="lg" className="text-md lg:text-lg">2210631250037</Chip>
-            <Chip size="lg" className="text-md lg:text-lg">089621232132</Chip>
-            <Chip size="lg" className="text-md lg:text-lg">student.eed@gmail.com</Chip>
-            <Chip size="lg" className="text-md lg:text-lg">Ilmu Pendidikan</Chip>
+            <Chip size="lg" className="text-md lg:text-lg">{userInformation?.identificationNumber}</Chip>
+            <Chip size="lg" className="text-md lg:text-lg">{userInformation?.telephone}</Chip>
+            <Chip size="lg" className="text-md lg:text-lg">{decodedToken?.email}</Chip>
+            <Chip size="lg" className="text-md lg:text-lg">{userInformation?.faculty}</Chip>
+            <Chip size="lg" className="text-md lg:text-lg">{userInformation?.studyProgram}</Chip>
           </div>
         </div>
 
