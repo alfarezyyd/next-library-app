@@ -54,8 +54,6 @@ export default function Page() {
     } finally {
       setLoading(false);
     }
-
-
   }
 
   useEffect(() => {
