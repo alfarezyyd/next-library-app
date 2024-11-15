@@ -27,7 +27,7 @@ export default function Page() {
   const [selectedFaculty, setSelectedFaculty] = useState("");
   const [selectedProgramStudy, setSelectedProgramStudy] = useState("");
   const [filteredPrograms, setFilteredPrograms] = useState([]);
-
+  const [userInformation, setUserInformation] = useState(null);
 
   const faculties = [
     {id: "1", name: "Fakultas Teknik"},
@@ -65,6 +65,12 @@ export default function Page() {
     setAccessToken(Cookies.get("accessToken"));
   }, [])
 
+  useEffect(() => {
+    if (accessToken) {
+      fetchExistingProfile()
+    }
+  }, [accessToken]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -77,9 +83,10 @@ export default function Page() {
     if (files?.[0]) {
       formData.append("image", files[0].file)
     }
+    const endpointUrl = userInformation !== null ? `informations/${userInformation.id}` : `informations`;
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}informations`, {
-        method: 'POST',
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}${endpointUrl}`, {
+        method: userInformation !== null ? "PUT" : "POST",
         includeCredentials: true,
         headers: {
           Accept: 'application/json',
@@ -105,6 +112,44 @@ export default function Page() {
     }
   }
 
+  const fetchExistingProfile = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}informations`, {
+        method: 'GET',
+        includeCredentials: true,
+        headers: {
+          Accept: 'application/json', 'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`,
+        },
+      });
+
+      const responseBody = await response.json();
+      if (response.ok) {
+        if (responseBody['result']['data'] !== null) {
+          setUserInformation(responseBody['result']['data']);
+          setPayloadFormData({
+            identificationNumber: responseBody['result']['data']['identificationNumber'],
+            telephone: responseBody['result']['data']['telephone'],
+          })
+          setSelectedFaculty(responseBody['result']['data']['faculty']);
+          setSelectedProgramStudy(responseBody['result']['data']['studyProgram']);
+          if (responseBody['result']['data']['profilePath'] !== null) {
+            setFiles([{
+              source: `${process.env.NEXT_PUBLIC_BACKEND_URL}public/assets/information-resources/${responseBody['result']['data']['imagePath']}`,
+              options: {type: 'input'}
+            }])
+          }
+        }
+      } else {
+      }
+    } catch (e) {
+      console.log(e)
+    } finally {
+      setLoading(false);
+    }
+  }
+
 
   async function onChangeHandler(e) {
     const {name, value} = e.target;
@@ -119,7 +164,7 @@ export default function Page() {
         <div className="bg-white bg-opacity-10 text-white px-4 py-2 rounded-full text-lg inline backdrop-blur-3xl">
           Admin
         </div>
-        <h1 className="font-fraunces text-3xl text-center font-bold text-white">Create Category</h1>
+        <h1 className="font-fraunces text-3xl text-center font-bold text-white">Manage Information</h1>
       </div>
       <div className="h-auto  p-5 text-black min-h-screen pb-36">
         <div className="flex flex-col items-center gap-5 max-w-xs lg:mx-auto">
@@ -151,6 +196,7 @@ export default function Page() {
             isRequired
             label="Fakultas"
             name="faculty"
+            selectedKeys={new Set([selectedFaculty])} // Default selected
             placeholder="Pilih Fakultas"
             onSelectionChange={(key) => {
               setSelectedFaculty(key.currentKey)
@@ -171,7 +217,6 @@ export default function Page() {
                 ],
               },
             }}
-
           >
             {faculties.map((faculty) => (
               <SelectItem key={faculty.name}>{faculty.name}</SelectItem>
@@ -182,6 +227,7 @@ export default function Page() {
             isRequired
             label="Program Studi"
             name="studyProgram"
+            selectedKeys={new Set([selectedProgramStudy])} // Default selected
             placeholder="Pilih Program Studi"
             className="max-w-xs"
             onSelectionChange={(key) => {
