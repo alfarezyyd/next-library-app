@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import Cookies from "js-cookie";
 import Wrapper from "@/components/Wrapper";
 import Navbar from "@/components/Navbar";
-import {useSearchParams} from "next/navigation";
+import {useRouter, useSearchParams} from "next/navigation";
 import Link from "next/link";
 import {IoIosArrowForward} from "react-icons/io";
 import {Loading} from "@/components/Loading";
@@ -16,20 +16,48 @@ export default function Page() {
   const searchParam = useSearchParams();
   const search = searchParam.get('search')
   const [searchedBooks, setSearchedBooks] = useState([]);
+  const {push} = useRouter();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [debounceTimeout, setDebounceTimeout] = useState(null);
 
   useEffect(() => {
     setAccessToken(Cookies.get("accessToken", accessToken));
-    console.log(Cookies.get("accessToken"));
   }, [])
 
   useEffect(() => {
     if (accessToken) {
-      console.log(accessToken);
       fetchSearchData()
     }
   }, [accessToken]);
 
+  useEffect(() => {
+  }, [searchedBooks])
+
+  useEffect(() => {
+    if (accessToken) {
+      fetchSearchData()
+    }
+  }, [search])
+
+  const handleChange = (e) => {
+    e.preventDefault();
+    setSearchTerm(e.target.value);
+
+    // Clear previous timeout if any
+    if (debounceTimeout) clearTimeout(debounceTimeout);
+
+    // Set new timeout
+    setDebounceTimeout(
+      setTimeout(() => {
+        if (e.target.value) {
+          push(`/search?search=${e.target.value}`);
+        }
+      }, 500) // Delay in milliseconds
+    );
+  };
+
   const fetchSearchData = async () => {
+    console.log(search);
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}books?search=${search}`, {
         method: 'GET',
@@ -53,7 +81,6 @@ export default function Page() {
     } finally {
       setLoading(false);
     }
-
   }
 
   useEffect(() => {
@@ -79,6 +106,7 @@ export default function Page() {
           className="text-white placeholder-white"
           startContent={<SearchIcon size={18}/>}
           type="search"
+          onChange={handleChange}
         />
       </div>
       <div className="mt-5 bg-white rounded-t-3xl p-5">

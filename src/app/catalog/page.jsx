@@ -7,6 +7,7 @@ import {IoIosArrowForward} from "react-icons/io";
 import {useEffect, useState} from "react";
 import Cookies from "js-cookie";
 import {Loading} from "@/components/Loading";
+import {useRouter} from "next/navigation";
 
 
 export default function Page() {
@@ -14,6 +15,10 @@ export default function Page() {
   const [popularBooks, setPopularBooks] = useState(null);
   const [loading, setLoading] = useState(false);
   const [allCategory, setAllCategory] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [debounceTimeout, setDebounceTimeout] = useState(null);
+
+  const {push} = useRouter();
   useEffect(() => {
     setAccessToken(Cookies.get("accessToken", accessToken));
     setLoading(true);
@@ -98,6 +103,23 @@ export default function Page() {
       setLoading(false);
     }
   }
+
+  const handleChange = (e) => {
+    e.preventDefault();
+    setSearchTerm(e.target.value);
+
+    // Clear previous timeout if any
+    if (debounceTimeout) clearTimeout(debounceTimeout);
+
+    // Set new timeout
+    setDebounceTimeout(
+      setTimeout(() => {
+        if (e.target.value) {
+          push(`/search?search=${e.target.value}`);
+        }
+      }, 500) // Delay in milliseconds
+    );
+  };
   return (
     <Wrapper additionalClass={"bg-[#3149BB] font-fraunces text-white"}>
       <div className="flex flex-col gap-5 pt-10 px-8">
@@ -114,6 +136,8 @@ export default function Page() {
           className="text-white placeholder-white"
           startContent={<SearchIcon size={18}/>}
           type="search"
+          onChange={handleChange}
+
         />
         <h1 className="text-2xl font-semibold">New Collection</h1>
         <div className="flex flex-row gap-2 overflow-x-auto whitespace-nowrap">
