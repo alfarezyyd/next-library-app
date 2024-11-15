@@ -33,12 +33,10 @@ export default function Page() {
         Cookies.set('accessToken', responseBody['result']['data']['accessToken']);
         push(`${process.env.NEXT_PUBLIC_BASE_URL}/catalog`);  // Redirect to the dashboard or another protected route
       } else {
-        console.log(responseBody);
-        const errorMessages = {};
-        responseBody.errors.message.forEach((error) => {
-          errorMessages[error.path[0]] = error.message;
+        setUserError({
+          email: 'Email not found nor valid',
+          password: 'Password not found nor valid',
         });
-        setUserError(errorMessages)
       }
     } catch (e) {
       console.log(e)
