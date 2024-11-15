@@ -7,11 +7,11 @@ import {CommonUtil} from "@/helper/CommonUtil";
 import {useRouter} from "next/navigation";
 import {MdModeEditOutline} from "react-icons/md";
 import {FaAddressCard} from "react-icons/fa6";
+import {FaArrowCircleRight, FaBookOpen} from "react-icons/fa";
+import Navbar from "@/components/Navbar";
 import {IoCall} from "react-icons/io5";
 import {IoMdMail} from "react-icons/io";
 import {HiLibrary} from "react-icons/hi";
-import {FaArrowCircleRight, FaBookOpen} from "react-icons/fa";
-import Navbar from "@/components/Navbar";
 
 export default function Page() {
   const [accessToken, setAccessToken] = useState();
@@ -90,29 +90,36 @@ export default function Page() {
       </div>
       <div
         className="bg-white relative bottom-14 mx-8 md:mx-12 rounded-3xl shadow-xl text-black backdrop-blur-2xl p-5 mb-28 md:mb-0">
-        <div className="flex flex-row justify-center items-center gap-2 lg:gap-4">
-          <div className="flex flex-col gap-4">
-            <Chip size="lg" className="text-md lg:text-lg"><FaAddressCard/></Chip>
-            <Chip size="lg" className="text-md lg:text-lg"><IoCall/></Chip>
-            <Chip size="lg" className="text-md lg:text-lg"><IoMdMail/></Chip>
-            <Chip size="lg" className="text-md lg:text-lg"><HiLibrary/></Chip>
-            <Chip size="lg" className="text-md lg:text-lg"><FaBookOpen/></Chip>
+        <div className="flex flex-col justify-start items-start gap-2 lg:gap-4">
+          <div className="flex flex-row gap-4">
+            <Chip color={"primary"} size="lg" className="text-md lg:text-lg self-center"><FaAddressCard/></Chip>
+            <Chip size="lg" className="text-md lg:text-lg break-words">{userInformation?.identificationNumber}</Chip>
           </div>
-          <div className="flex flex-col flex-wrap gap-4">
-            <Chip size="lg" className="text-md lg:text-lg">{userInformation?.identificationNumber}</Chip>
-            <Chip size="lg" className="text-md lg:text-lg">{userInformation?.telephone}</Chip>
-            <Chip size="lg" className="text-md lg:text-lg">{decodedToken?.email}</Chip>
-            <Chip size="lg" className="text-md lg:text-lg">{userInformation?.faculty}</Chip>
-            <Chip size="lg" className="text-md lg:text-lg">{userInformation?.studyProgram}</Chip>
+          <div className="flex flex-row gap-4">
+            <Chip color={"primary"} size="lg" className="text-md lg:text-lg"><IoCall/></Chip>
+            <Chip size="lg" className="text-md lg:text-lg break-words">{userInformation?.telephone}</Chip>
+          </div>
+          <div className="flex flex-row gap-4">
+            <Chip color={"primary"} size="lg" className="text-md lg:text-lg"><IoMdMail/></Chip>
+            <Chip size="lg" className="text-md lg:text-lg break-words">{decodedToken?.email}</Chip>
+          </div>
+          <div className="flex flex-row gap-4">
+            <Chip color={"primary"} size="lg" className="text-md lg:text-lg self-center"><HiLibrary/></Chip>
+            <Chip size="lg" className="text-md lg:text-lg whitespace-normal break-words h-fit flex-wrap">
+              {userInformation?.faculty}</Chip>
+          </div>
+          <div className="flex flex-row gap-4">
+            <Chip color={"primary"} size="lg" className="text-md lg:text-lg"><FaBookOpen/></Chip>
+            <Chip size="lg" className="text-md lg:text-lg break-words">{userInformation?.studyProgram}</Chip>
           </div>
         </div>
-
         <a href="/activity"
            className="-m-5 mt-5 rounded-b-3xl bg-sky-200 flex flex-row justify-center gap-2 items-center">
           <h1 className="text-2xl text-center p-2">Activity</h1>
           <FaArrowCircleRight className="text-xl"/>
         </a>
       </div>
+
 
       <Navbar whichActive={'Profile'}/>
     </Wrapper>)

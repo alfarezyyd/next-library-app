@@ -136,7 +136,7 @@ export default function Page() {
           setSelectedProgramStudy(responseBody['result']['data']['studyProgram']);
           if (responseBody['result']['data']['profilePath'] !== null) {
             setFiles([{
-              source: `${process.env.NEXT_PUBLIC_BACKEND_URL}public/assets/information-resources/${responseBody['result']['data']['imagePath']}`,
+              source: `${process.env.NEXT_PUBLIC_BACKEND_URL}public/assets/information-resources/${responseBody['result']['data']['profilePath']}`,
               options: {type: 'input'}
             }])
           }
