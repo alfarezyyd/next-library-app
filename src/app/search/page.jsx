@@ -134,7 +134,7 @@ export default function Page() {
           )}
         </div>
       </div>
-      <Navbar whichActive={"Scan"}/>
+      <Navbar whichActive={"Home"}/>
     </Wrapper>
   );
 }
