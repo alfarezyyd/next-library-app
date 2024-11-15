@@ -6,7 +6,7 @@ import Navbar from "@/components/Navbar";
 import {IoIosArrowForward} from "react-icons/io";
 import {useEffect, useState} from "react";
 import Cookies from "js-cookie";
-import {useParams} from "next/navigation";
+import {useParams, useRouter} from "next/navigation";
 import {Loading} from "@/components/Loading";
 
 
@@ -17,6 +17,9 @@ export default function Page() {
   const [allCategory, setAllCategory] = useState(null);
   const [activeCategory, setActiveCategory] = useState(null);
   const routerParam = useParams();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [debounceTimeout, setDebounceTimeout] = useState(null);
+  const {push} = useRouter();
   useEffect(() => {
     setAccessToken(Cookies.get("accessToken", accessToken));
     setLoading(true);
@@ -30,6 +33,22 @@ export default function Page() {
 
     }
   }, [accessToken, routerParam.categoryId]);
+  const handleChange = (e) => {
+    e.preventDefault();
+    setSearchTerm(e.target.value);
+
+    // Clear previous timeout if any
+    if (debounceTimeout) clearTimeout(debounceTimeout);
+
+    // Set new timeout
+    setDebounceTimeout(
+      setTimeout(() => {
+        if (e.target.value) {
+          push(`/search?search=${e.target.value}`);
+        }
+      }, 500) // Delay in milliseconds
+    );
+  };
 
   async function fetchPopularBooks(categoryId) {
     try {
@@ -109,6 +128,8 @@ export default function Page() {
             className="text-black"
             startContent={<SearchIcon size={18}/>}
             type="search"
+            onChange={handleChange}
+
           />
           {categorizeBooks !== null ? categorizeBooks.map((item, index) => (
             <div key={`book-${item.id}`}>
