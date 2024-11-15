@@ -21,6 +21,7 @@ import {FaPen, FaTrash} from "react-icons/fa6";
 import {useEffect, useState} from "react";
 import Cookies from "js-cookie";
 import {CalendarDate, parseDate} from "@internationalized/date";
+import {CommonUtil} from "@/helper/CommonUtil";
 
 export default function Page() {
   const [accessToken, setAccessToken] = useState("");
@@ -31,6 +32,7 @@ export default function Page() {
   const [activeLoan, setActiveLoan] = useState();
   const [returnDate, setReturnDate] = useState(parseDate(new Date().toISOString().split("T")[0]));
   const [shouldRefetch, setShouldRefetch] = useState(false);
+  const [decodedToken, setDecodedToken] = useState();
 
   useEffect(() => {
     setAccessToken(Cookies.get("accessToken"));
@@ -38,6 +40,7 @@ export default function Page() {
   useEffect(() => {
     if (accessToken) {
       fetchAllLoans()
+      setDecodedToken(CommonUtil.parseJwt(accessToken));
     }
   }, [accessToken])
   const fetchAllLoans = async () => {
@@ -198,21 +201,23 @@ export default function Page() {
                   <TableCell>{loan.returnDate?.substring(0, 10)}</TableCell>
                   <TableCell>{loan.amercement}</TableCell>
                   <TableCell>
-                    <div className="flex flex-row gap-4 justify-center">
-                      <Button isIconOnly color="primary" aria-label="Edit" onPress={() => {
-                        onOpen()
-                        setActiveLoan(loan)
-                      }}
-                              href={`/admin/loans/update/${loan.id}`}>
-                        <FaPen/>
-                      </Button>
-                      <Button isIconOnly color="danger" aria-label="Edit" onClick={() => {
-                        setReturnDate(parseDate(loan.returnDate))
-                        triggerDelete(loan.id)
-                      }}>
-                        <FaTrash/>
-                      </Button>
-                    </div>
+                    {decodedToken?.role === "ADMIN" &&
+                      <div className="flex flex-row gap-4 justify-center">
+                        <Button isIconOnly color="primary" aria-label="Edit" onPress={() => {
+                          onOpen()
+                          setActiveLoan(loan)
+                        }}
+                                href={`/admin/loans/update/${loan.id}`}>
+                          <FaPen/>
+                        </Button>
+                        <Button isIconOnly color="danger" aria-label="Edit" onClick={() => {
+                          setReturnDate(parseDate(loan.returnDate))
+                          triggerDelete(loan.id)
+                        }}>
+                          <FaTrash/>
+                        </Button>
+                      </div>
+                    }
                   </TableCell>
                 </TableRow>
               ))}
