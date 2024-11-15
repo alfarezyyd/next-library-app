@@ -42,20 +42,7 @@ export default function Page() {
             className="shape-fill"></path>
         </svg>
       </div>
-      {decodedToken?.role === "MEMBER" && (
-        <div className="flex flex-col justify-center items-center bg-sky-200 gap-4 p-4 mt-4 px-10 md:px-12">
-          <h1 className="text-black font-acorn font-semibold tracking-widest text-lg md:text-xl">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor eaque et fugit impedit iste officia placeat,
-            quae quisquam vel voluptatum.
-          </h1>
-          <h1 className="text-black font-acorn font-light text-md md:text-lg">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum debitis deleniti harum possimus quos! Ab,
-            atque
-            beatae debitis dicta harum, hic impedit magni necessitatibus nesciunt possimus quidem ullam. Cupiditate,
-            laboriosam.
-          </h1>
-        </div>
-      )}
+
       <div className={"px-12 font-fraunces mt-3"}>
         <div className="flex flex-col gap-4">
           <Link href={"/admin/loan/"}>
