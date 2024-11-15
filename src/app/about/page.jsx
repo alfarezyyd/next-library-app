@@ -57,67 +57,71 @@ export default function Page() {
         </div>
       )}
       <div className={"px-12 font-fraunces mt-3"}>
-        {decodedToken?.role === "ADMIN" && (
-          <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4">
+          <Link href={"/admin/loan/"}>
             <div className="relative bg-white p-5 shadow-xl rounded-3xl overflow-hidden group">
-              <Link href={"/admin/books/"}>
-                <div className="flex flex-row gap-5 items-center  relative z-10">
-                  <div
-                    className="p-2 rounded-full  transition duration-300 bg-blue-600 text-white group-hover:bg-white group-hover:text-blue-600">
-                    <FaBook/>
-                  </div>
-                  <h1 className="text-xl text-blue-600 group-hover:text-white">Manage Book</h1>
+              <div className="flex flex-row gap-5 items-center  relative z-10">
+                <div
+                  className="p-2 rounded-full  transition duration-300 bg-blue-600 text-white group-hover:bg-white group-hover:text-blue-600">
+                  <FaUser/>
                 </div>
-              </Link>
+                <h1 className="text-xl text-blue-600 group-hover:text-white">Manage Loan</h1>
+              </div>
               {/* Pseudo-element menggunakan Tailwind utility classes */}
               <div
                 className="absolute inset-0 bg-blue-600 transform -translate-x-full transition-transform duration-500 group-hover:translate-x-0 z-0"></div>
             </div>
-            <Link href={"/admin/loan/"}>
-              <div className="relative bg-white p-5 shadow-xl rounded-3xl overflow-hidden group">
-                <div className="flex flex-row gap-5 items-center  relative z-10">
-                  <div
-                    className="p-2 rounded-full  transition duration-300 bg-blue-600 text-white group-hover:bg-white group-hover:text-blue-600">
-                    <FaUser/>
-                  </div>
-                  <h1 className="text-xl text-blue-600 group-hover:text-white">Manage Loan</h1>
-                </div>
-                {/* Pseudo-element menggunakan Tailwind utility classes */}
+          </Link>
+          <Link href={"/about/info/"}>
+            <div className="relative bg-white p-5 shadow-xl rounded-3xl overflow-hidden group">
+              <div className="flex flex-row gap-5 items-center  relative z-10">
                 <div
-                  className="absolute inset-0 bg-blue-600 transform -translate-x-full transition-transform duration-500 group-hover:translate-x-0 z-0"></div>
-              </div>
-            </Link>
-            <Link href={"/admin/categories/"}>
-              <div className="relative bg-white p-5 shadow-xl rounded-3xl overflow-hidden group">
-                <div className="flex flex-row gap-5 items-center  relative z-10">
-                  <div
-                    className="p-2 rounded-full  transition duration-300 bg-blue-600 text-white group-hover:bg-white group-hover:text-blue-600">
-                    <FaList/>
-                  </div>
-                  <h1 className="text-xl text-blue-600 group-hover:text-white">Manage Category</h1>
+                  className="p-2 rounded-full  transition duration-300 bg-blue-600 text-white group-hover:bg-white group-hover:text-blue-600">
+                  <FaCircleInfo/>
                 </div>
-                {/* Pseudo-element menggunakan Tailwind utility classes */}
-                <div
-                  className="absolute inset-0 bg-blue-600 transform -translate-x-full transition-transform duration-500 group-hover:translate-x-0 z-0"></div>
+                <h1 className="text-xl text-blue-600 group-hover:text-white">Tentang Aplikasi</h1>
               </div>
-            </Link>
-            <Link href={"/about/info/"}>
-              <div className="relative bg-white p-5 shadow-xl rounded-3xl overflow-hidden group">
-                <div className="flex flex-row gap-5 items-center  relative z-10">
-                  <div
-                    className="p-2 rounded-full  transition duration-300 bg-blue-600 text-white group-hover:bg-white group-hover:text-blue-600">
-                    <FaCircleInfo/>
-                  </div>
-                  <h1 className="text-xl text-blue-600 group-hover:text-white">Tentang Aplikasi</h1>
-                </div>
-                {/* Pseudo-element menggunakan Tailwind utility classes */}
-                <div
-                  className="absolute inset-0 bg-blue-600 transform -translate-x-full transition-transform duration-500 group-hover:translate-x-0 z-0"></div>
-              </div>
-            </Link>
+              {/* Pseudo-element menggunakan Tailwind utility classes */}
+              <div
+                className="absolute inset-0 bg-blue-600 transform -translate-x-full transition-transform duration-500 group-hover:translate-x-0 z-0"></div>
+            </div>
+          </Link>
 
-          </div>
-        )}
+          {decodedToken?.role === "ADMIN" && (
+            <div className="flex flex-col gap-4">
+              <div className="relative bg-white p-5 shadow-xl rounded-3xl overflow-hidden group">
+                <Link href={"/admin/books/"}>
+                  <div className="flex flex-row gap-5 items-center  relative z-10">
+                    <div
+                      className="p-2 rounded-full  transition duration-300 bg-blue-600 text-white group-hover:bg-white group-hover:text-blue-600">
+                      <FaBook/>
+                    </div>
+                    <h1 className="text-xl text-blue-600 group-hover:text-white">Manage Book</h1>
+                  </div>
+                </Link>
+                {/* Pseudo-element menggunakan Tailwind utility classes */}
+                <div
+                  className="absolute inset-0 bg-blue-600 transform -translate-x-full transition-transform duration-500 group-hover:translate-x-0 z-0"></div>
+              </div>
+              <Link href={"/admin/categories/"}>
+                <div className="relative bg-white p-5 shadow-xl rounded-3xl overflow-hidden group">
+                  <div className="flex flex-row gap-5 items-center  relative z-10">
+                    <div
+                      className="p-2 rounded-full  transition duration-300 bg-blue-600 text-white group-hover:bg-white group-hover:text-blue-600">
+                      <FaList/>
+                    </div>
+                    <h1 className="text-xl text-blue-600 group-hover:text-white">Manage Category</h1>
+                  </div>
+                  {/* Pseudo-element menggunakan Tailwind utility classes */}
+                  <div
+                    className="absolute inset-0 bg-blue-600 transform -translate-x-full transition-transform duration-500 group-hover:translate-x-0 z-0"></div>
+                </div>
+              </Link>
+
+            </div>
+          )}
+        </div>
+
       </div>
       <Navbar whichActive={"About"}/>
     </Wrapper>
