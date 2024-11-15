@@ -1,17 +1,17 @@
 "use client"
 import {Chip, Image} from "@nextui-org/react";
 import Wrapper from "@/components/Wrapper";
-import Navbar from "@/components/Navbar";
+import {useEffect, useState} from "react";
+import Cookies from "js-cookie";
+import {CommonUtil} from "@/helper/CommonUtil";
+import {useRouter} from "next/navigation";
+import {MdModeEditOutline} from "react-icons/md";
 import {FaAddressCard} from "react-icons/fa6";
 import {IoCall} from "react-icons/io5";
 import {IoMdMail} from "react-icons/io";
 import {HiLibrary} from "react-icons/hi";
 import {FaArrowCircleRight, FaBookOpen} from "react-icons/fa";
-import {MdModeEditOutline} from "react-icons/md";
-import {useEffect, useState} from "react";
-import Cookies from "js-cookie";
-import {useRouter} from "next/navigation";
-import {CommonUtil} from "@/helper/CommonUtil";
+import Navbar from "@/components/Navbar";
 
 export default function Page() {
   const [accessToken, setAccessToken] = useState();
@@ -65,13 +65,20 @@ export default function Page() {
         <h1 className="font-fraunces text-2xl text-center font-bold">PerpusYuk</h1>
         <div className="w-48 h-48 mask-image-blob bg-amber-500 mx-auto">
           <Image
-            src={`${process.env.NEXT_PUBLIC_BACKEND_URL}public/assets/information-resources/${userInformation?.profilePath}`}
-            className="w-64 h-64 top-16 left-10"/>
+            src={`${userInformation?.profilePath === undefined ? (
+              `/profile.png`
+            ) : (
+              `${process.env.NEXT_PUBLIC_BACKEND_URL}public/assets/information-resources/${userInformation?.profilePath}`
+            )}`}
+            className="w-32 h-32 top-14 left-10"/>
         </div>
         <div className="text-center pb-8 flex flex-row justify-center gap-3 relative">
-          <h1 className="text-2xl">Budi Anggoro</h1>
+          <h1 className="text-2xl">{decodedToken?.fullName}</h1>
           <button
-            className="absolute left-[17rem]  md:left-80 bottom-10 p-1 bg-white text-xl text-black rounded-full hover:text-blue-700">
+            className="absolute left-[17rem]  md:left-80 bottom-10 p-1 bg-white text-xl text-black rounded-full hover:text-blue-700"
+            onClick={() => {
+              push('/profile/manage');
+            }}>
             <MdModeEditOutline/>
           </button>
         </div>
