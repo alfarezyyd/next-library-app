@@ -65,7 +65,7 @@ export default function Page() {
         <h1 className="font-fraunces text-2xl text-center font-bold">PerpusYuk</h1>
         <div className="w-48 h-48 mask-image-blob bg-amber-500 mx-auto">
           <Image
-            src={`${userInformation?.profilePath === undefined ? (
+            src={`${userInformation?.profilePath === undefined || userInformation?.profilePath === null ? (
               `/profile.png`
             ) : (
               `${process.env.NEXT_PUBLIC_BACKEND_URL}public/assets/information-resources/${userInformation?.profilePath}`
