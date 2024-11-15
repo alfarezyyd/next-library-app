@@ -74,7 +74,9 @@ export default function Page() {
     formData.append("studyProgram", selectedProgramStudy);
     formData.append("telephone", payloadFormData.telephone);
     formData.append("identificationNumber", payloadFormData.identificationNumber);
-    formData.append("image", files[0].file)
+    if (files?.[0]) {
+      formData.append("image", files[0].file)
+    }
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}informations`, {
         method: 'POST',
