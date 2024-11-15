@@ -1,8 +1,141 @@
+"use client"
 import Image from "next/image";
-import {Button, Input, Link} from "@nextui-org/react";
+import {Button, Input} from "@nextui-org/react";
 import Wrapper from "@/components/Wrapper";
+import {useEffect, useState} from "react";
+import {Bounce, toast} from "react-toastify";
+import Link from "next/link";
+import {EyeSlashFilledIcon} from "@/components/icon/EyeSlashFilledIcon";
+import {EyeFilledIcon} from "@/components/icon/EyeFilledIcon";
+import {useRouter} from "next/navigation";
 
 export default function Page() {
+  const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [userError, setUserError] = useState("");
+  const [state, setState] = useState("send");
+  const [token, setToken] = useState("");
+  const [isVisible, setIsVisible] = useState(false);
+  const {push} = useRouter();
+  const [payloadReset, setPayloadReset] = useState({
+    password: "",
+    confirmPassword: "",
+  })
+
+  const toggleVisibility = () => setIsVisible(!isVisible);
+
+  useEffect(() => {
+  }, []);
+
+  const triggerSendOtp = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}authentication/generate-otp`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json', 'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email,
+        })
+      });
+
+      if (response.ok) {
+        toast.success('🦄 OTP berhasil dikirim', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce
+        });
+        setState("verify")
+      } else {
+      }
+    } catch (e) {
+      console.log(e)
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function triggerVerify() {
+    setLoading(true);
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}authentication/verify-otp`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json', 'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          token: token,
+        })
+      });
+
+      const responseBody = await response.json();
+      if (response.ok) {
+        toast.success('🦄 OTP valid', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce
+        });
+        setState("reset")
+      } else {
+      }
+    } catch (e) {
+      console.log(e)
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function triggerReset() {
+    setLoading(true);
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}authentication/reset-password`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json', 'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          password: payloadReset.password,
+          confirmPassword: payloadReset.confirmPassword,
+        })
+      });
+
+      const responseBody = await response.json();
+      if (response.ok) {
+        toast.success('🦄 Password berhasil direset', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce
+        });
+        push("/auth/login")
+      } else {
+      }
+    } catch (e) {
+      console.log(e)
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <Wrapper additionalClass={"bg-sky-200"}>
       <div className="bg-white py-7">
@@ -25,18 +158,112 @@ export default function Page() {
         <h1 className="pt-4 font-gabarito text-blue-900 text-3xl text-center font-semibold">
           Perpusyuk!
         </h1>
+        {
+          state === "send" && (
+            <Input
+              isRequired
+              type="email"
+              label="Email"
+              className="max-w-xs"
+              name="email"
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+              isInvalid={userError}
+              errorMessage={userError}
+            />
+          )
+        }
+        {
+          state === "verify" && (
+            <Input
+              isRequired
+              type="text"
+              label="One Time Password"
+              className="max-w-xs"
+              name="token"
+              onChange={(e) => {
+                setToken(e.target.value);
+              }}
+              isInvalid={userError}
+              errorMessage={userError}
+            />
+          )
+        }
 
-        <Input
-          isRequired
-          type="email"
-          label="Email"
-          className="max-w-xs"
-        />
-        <Button color="primary">
-          Atur Ulang
-        </Button>
+        {
+          state === "reset" && (
+            <div className="flex flex-col justify-center items-center gap-4 max-w-lg text-black">
+              <Input
+                label="Password"
+                variant="solid"
+                placeholder="Enter your password"
+                endContent={
+                  <button className="focus:outline-none" type="button" onClick={toggleVisibility}
+                          aria-label="toggle password visibility">
+                    {isVisible ? (
+                      <EyeSlashFilledIcon className="text-2xl text-default-400 pointer-events-none"/>
+                    ) : (
+                      <EyeFilledIcon className="text-2xl text-default-400 pointer-events-none"/>
+                    )}
+                  </button>
+                }
+                type={isVisible ? "text" : "password"}
+                className="max-w-xs"
+                onChange={(e) => {
+                  setPayloadReset({
+                    ...payloadReset, password: e.target.value
+                  })
+                }}
+              />
+              <Input
+                label="Confirm Password"
+                variant="solid"
+                placeholder="Enter your password"
+                endContent={
+                  <button className="focus:outline-none" type="button" onClick={toggleVisibility}
+                          aria-label="toggle password visibility">
+                    {isVisible ? (
+                      <EyeSlashFilledIcon className="text-2xl text-default-400 pointer-events-none"/>
+                    ) : (
+                      <EyeFilledIcon className="text-2xl text-default-400 pointer-events-none"/>
+                    )}
+                  </button>
+                }
+                type={isVisible ? "text" : "password"}
+                className="max-w-xs"
+                onChange={(e) => {
+                  setPayloadReset({
+                    ...payloadReset, confirmPassword: e.target.value
+                  })
+                }}
+              />
+            </div>
+          )
+        }
+
+        {
+          state === "verify" && (
+            <Button color="primary" onClick={triggerVerify} isLoading={loading} type="submit">
+              Verify OTP
+            </Button>
+          )
+        }
+        {
+          state === "reset" && (
+            <Button color="primary" onClick={triggerReset} isLoading={loading} type="submit">
+              Reset Password
+            </Button>
+          )
+        }
+        {(state === "verify" || state === "send") && (
+          <Button color="primary" onClick={triggerSendOtp} isLoading={loading} type="submit"
+                  variant={state === "verify" ? "ghost" : "solid"}>
+            Kirim OTP
+          </Button>
+        )}
         <Link href="/auth/login" className="relative inline-block text-blue-600">
-          <span className="hover-underline-effect">Login</span>
+          <span className="hover-underline-effect">Kembali ke Login</span>
         </Link>
 
       </div>
