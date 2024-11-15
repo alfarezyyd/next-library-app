@@ -29,7 +29,9 @@ export default function Page() {
   const [loading, setLoading] = useState(false);
   const [allLoan, setAllLoan] = useState([]);
   const [activeLoan, setActiveLoan] = useState();
-  const [returnDate, setReturnDate] = useState(new Date().toISOString().split("T")[0]);
+  const [returnDate, setReturnDate] = useState(parseDate(new Date().toISOString().split("T")[0]));
+  const [shouldRefetch, setShouldRefetch] = useState(false);
+
   useEffect(() => {
     setAccessToken(Cookies.get("accessToken"));
   }, [])
@@ -95,6 +97,12 @@ export default function Page() {
   useEffect(() => {
 
   }, [allLoan])
+  useEffect(() => {
+    if (shouldRefetch) {
+      fetchAllLoans();
+      setShouldRefetch(false); // Reset state setelah dipanggil
+    }
+  }, [shouldRefetch]);
 
   async function triggerReturn() {
     setLoading(true);
@@ -117,6 +125,8 @@ export default function Page() {
       const responseBody = await response.json();
       if (response.ok) {
         onOpenChange(false)
+        setShouldRefetch(true); // Tandai untuk melakukan fetch ulang
+
       } else {
         console.log(responseBody);
       }
@@ -151,8 +161,7 @@ export default function Page() {
                   label={"Return Date"}
                   isRequired
                   color={"primary"}
-                  value={parseDate(activeLoan.returnDate.split("T")[0])}
-                  defaultValue={parseDate(new Date().toISOString().split("T")[0])}
+                  value={returnDate}
                   placeholderValue={new CalendarDate(1995, 11, 6)}
                   onChange={(date) => setReturnDate(date)} // date adalah nilai yang dipilih
                 />
@@ -198,6 +207,7 @@ export default function Page() {
                         <FaPen/>
                       </Button>
                       <Button isIconOnly color="danger" aria-label="Edit" onClick={() => {
+                        setReturnDate(parseDate(loan.returnDate))
                         triggerDelete(loan.id)
                       }}>
                         <FaTrash/>
