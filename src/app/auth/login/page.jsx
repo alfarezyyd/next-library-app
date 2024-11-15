@@ -7,7 +7,7 @@ import {useEffect, useState} from "react";
 import {EyeSlashFilledIcon} from "@/components/icon/EyeSlashFilledIcon";
 import {EyeFilledIcon} from "@/components/icon/EyeFilledIcon";
 import Cookies from "js-cookie";
-import {useRouter, useSearchParams} from "next/navigation";
+import {useRouter} from "next/navigation";
 
 export default function Page() {
   const [isVisible, setIsVisible] = useState(false);
@@ -16,6 +16,7 @@ export default function Page() {
   const toggleVisibility = () => setIsVisible(!isVisible);
   const [userError, setUserError] = useState({});
   const {push} = useRouter();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -46,23 +47,19 @@ export default function Page() {
   }
 
   const router = useRouter();
-  const searchParams = useSearchParams();
 
   useEffect(() => {
-    // Ambil token dari URL
-    const token = searchParams.get('token');
+    const searchParams = new URLSearchParams(window.location.search);
+    const token = searchParams.get("token");
 
     if (token) {
-      // Simpan token di cookie
-      Cookies.set('accessToken', token);
-
-      // Redirect ke halaman dashboard setelah login
-      router.push('/catalog');
+      Cookies.set("accessToken", token);
+      router.push("/catalog");
     } else {
-      // Jika tidak ada token, redirect ke halaman login
-      router.push('/auth/login');
+      router.push("/auth/login");
     }
-  }, [searchParams, router]);
+  }, [router]);
+
 
   const onChangeHandler = (e) => {
     const {name, value} = e.target

@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import Cookies from "js-cookie";
 import Wrapper from "@/components/Wrapper";
 import Navbar from "@/components/Navbar";
-import {useRouter, useSearchParams} from "next/navigation";
+import {useRouter} from "next/navigation";
 import Link from "next/link";
 import {IoIosArrowForward} from "react-icons/io";
 import {Loading} from "@/components/Loading";
@@ -13,8 +13,8 @@ import {SearchIcon} from "@/components/icon/SearchIcon";
 export default function Page() {
   const [accessToken, setAccessToken] = useState();
   const [loading, setLoading] = useState(false);
-  const searchParam = useSearchParams();
-  const search = searchParam.get('search')
+  const [search, setSearch] = useState("");
+
   const [searchedBooks, setSearchedBooks] = useState([]);
   const {push} = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
@@ -55,6 +55,16 @@ export default function Page() {
       }, 500) // Delay in milliseconds
     );
   };
+  useEffect(() => {
+    // Ambil URL query parameter "search"
+    const params = new URLSearchParams(window.location.search);
+    const searchParam = params.get("search");
+
+    // Set ke state
+    if (searchParam) {
+      setSearch(searchParam);
+    }
+  }, []);
 
   const fetchSearchData = async () => {
     console.log(search);
