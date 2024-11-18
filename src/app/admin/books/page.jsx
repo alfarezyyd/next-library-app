@@ -56,7 +56,6 @@ export default function Page() {
       });
       const responseBody = await response.json();
       if (response.ok) {
-        setAllBook(responseBody['result']['data']);
         setAllBook((prevAllBook) => prevAllBook.filter((book) => book.id !== id));
       } else {
       }
