@@ -146,7 +146,7 @@ export default function Page() {
               <div key={`book-${book.id}`}
                    className="w-36 rounded-lg shadow-lg overflow-hidden bg-blue-500/20 text-white relative flex-shrink-0">
                 <div className="w-36 h-32 relative z-0">
-                  <Image src={`${process.env.NEXT_PUBLIC_BACKEND_URL}public/assets/books-resources/${book.imagePath}`}/>
+                  <Image src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/books-resources/${book.imagePath}`}/>
                 </div>
                 <div className="p-4 bg-white text-black z-50 relative">
                   <p className="text-sm text-gray-500">{book.category.name}</p>
@@ -174,7 +174,7 @@ export default function Page() {
             <Link key={`book-${item.id}`} href={`/books/${item.id}`}>
               <div className="flex flex-row gap-4">
                 <div className="bg-pink-100/40 rounded-xl p-2 backdrop-blur flex-shrink-0">
-                  <Image src={`${process.env.NEXT_PUBLIC_BACKEND_URL}public/assets/books-resources/${item.imagePath}`}
+                  <Image src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/books-resources/${item.imagePath}`}
                          className="h-28 w-28"/>
                 </div>
                 <div className="flex flex-col text-black gap-4 w-full">

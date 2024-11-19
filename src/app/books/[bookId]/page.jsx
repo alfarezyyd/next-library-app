@@ -96,7 +96,7 @@ export default function Page() {
             <div className="absolute left-1/2 transform -translate-x-1/2">
               <Image
                 src={
-                  showQRCode ? `${process.env.NEXT_PUBLIC_BACKEND_URL}public/assets/qr-code/${book?.qrCodePath}` : `${process.env.NEXT_PUBLIC_BACKEND_URL}public/assets/books-resources/${book?.imagePath}`
+                  showQRCode ? `${process.env.NEXT_PUBLIC_STORAGE_URL}/qr-code/${book?.qrCodePath}` : `${process.env.NEXT_PUBLIC_STORAGE_URL}/books-resources/${book?.imagePath}`
                 }
                 alt="Book Image"
                 className="w-52 h-52 p-3 bg-gradient-to-bl from-blue-600 via-sky-300 to-sky-50 shadow-2xl backdrop-blur-2xl"

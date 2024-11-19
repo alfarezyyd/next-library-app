@@ -69,7 +69,7 @@ export default function Page() {
           categoryId: responseBody['result']['data']['category']['id'],
         })
         setFiles([{
-          source: `${process.env.NEXT_PUBLIC_BACKEND_URL}public/assets/books-resources/${responseBody['result']['data']['imagePath']}`,
+          source: `${process.env.NEXT_PUBLIC_STORAGE_URL}/books-resources/${responseBody['result']['data']['imagePath']}`,
           options: {type: 'input'}
         }])
         console.log(responseBody['result']['data']);

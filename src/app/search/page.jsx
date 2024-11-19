@@ -125,7 +125,7 @@ export default function Page() {
             <Link key={`book-${item.id}`} href={`/books/${item.id}`}>
               <div className="flex flex-row gap-4 mb-2">
                 <div className="bg-pink-100/40 rounded-xl p-2 backdrop-blur flex-shrink-0">
-                  <Image src={`${process.env.NEXT_PUBLIC_BACKEND_URL}public/assets/books-resources/${item.imagePath}`}
+                  <Image src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/books-resources/${item.imagePath}`}
                          className="h-28 w-28"/>
                 </div>
                 <div className="flex flex-col text-black gap-4 w-full">

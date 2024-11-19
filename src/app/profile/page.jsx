@@ -68,7 +68,7 @@ export default function Page() {
             src={`${userInformation?.profilePath === undefined || userInformation?.profilePath === null ? (
               `/profile.png`
             ) : (
-              `${process.env.NEXT_PUBLIC_BACKEND_URL}public/assets/information-resources/${userInformation?.profilePath}`
+              `${process.env.NEXT_PUBLIC_STORAGE_URL}/information-resources/${userInformation?.profilePath}`
             )}`}
             className="w-32 h-32 top-14 left-10"/>
         </div>
