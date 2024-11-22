@@ -2,12 +2,13 @@
 import Image from "next/image";
 import {Button, Input} from "@nextui-org/react";
 import Wrapper from "@/components/Wrapper";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {Bounce, toast} from "react-toastify";
 import Link from "next/link";
 import {EyeSlashFilledIcon} from "@/components/icon/EyeSlashFilledIcon";
 import {EyeFilledIcon} from "@/components/icon/EyeFilledIcon";
 import {useRouter} from "next/navigation";
+import ReCAPTCHA from "react-google-recaptcha";
 
 export default function Page() {
   const [loading, setLoading] = useState(false);
@@ -17,6 +18,8 @@ export default function Page() {
   const [token, setToken] = useState("");
   const [isVisible, setIsVisible] = useState(false);
   const {push} = useRouter();
+  const recaptcha = useRef(null);
+
   const [payloadReset, setPayloadReset] = useState({
     password: "",
     confirmPassword: "",
@@ -27,8 +30,12 @@ export default function Page() {
   useEffect(() => {
   }, []);
 
-  const triggerSendOtp = async () => {
+  const triggerSendOtp = async (e) => {
     setLoading(true);
+    e.preventDefault();
+    if (!recaptcha.current.getValue()) {
+      toast.error('Please Submit Captcha')
+    }
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}authentication/generate-otp`, {
         method: 'POST',
@@ -160,18 +167,23 @@ export default function Page() {
         </h1>
         {
           state === "send" && (
-            <Input
-              isRequired
-              type="email"
-              label="Email"
-              className="max-w-xs"
-              name="email"
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
-              isInvalid={userError}
-              errorMessage={userError}
-            />
+            <>
+              <Input
+                isRequired
+                type="email"
+                label="Email"
+                className="max-w-xs"
+                name="email"
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+                isInvalid={userError}
+                errorMessage={userError}
+              />
+              <ReCAPTCHA sitekey={process.env.NEXT_PUBLIC_CAPTCHA_SITE_KEY} ref={recaptcha} size={"normal"}/>
+            </>
+
+
           )
         }
         {

@@ -3,11 +3,13 @@ import Image from "next/image";
 import {Button, Input, Link} from "@nextui-org/react";
 import {FaGoogle} from "react-icons/fa";
 import Wrapper from "@/components/Wrapper";
-import {useState} from "react";
+import {useRef, useState} from "react";
 import {EyeSlashFilledIcon} from "@/components/icon/EyeSlashFilledIcon";
 import {EyeFilledIcon} from "@/components/icon/EyeFilledIcon";
 import Cookies from 'js-cookie'
 import {useRouter} from "next/navigation";
+import ReCAPTCHA from "react-google-recaptcha";
+import {toast} from "react-toastify";
 
 export default function Page() {
   const [loading, setLoading] = useState(false);
@@ -15,9 +17,14 @@ export default function Page() {
   const [payloadRequest, setPayloadRequest] = useState({});
   const toggleVisibility = () => setIsVisible(!isVisible);
   const [userError, setUserError] = useState({});
+  const recaptcha = useRef(null);
+
   const {push} = useRouter();
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!recaptcha.current.getValue()) {
+      toast.error('Please Submit Captcha')
+    }
     setLoading(true);
     setUserError({});
     try {
@@ -116,6 +123,7 @@ export default function Page() {
           name="fullName"
           errorMessage={userError.fullName ? userError.fullName : ""}
         />
+        <ReCAPTCHA sitekey={process.env.NEXT_PUBLIC_CAPTCHA_SITE_KEY} ref={recaptcha} size={"normal"}/>
         <Button onClick={handleSubmit} color="primary" isLoading={loading}>
           Register
         </Button>
